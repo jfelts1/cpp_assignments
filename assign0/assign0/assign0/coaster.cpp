@@ -10,6 +10,7 @@ void readInput(int& carSize, int& numCars, int& peopleWaiting)
 	carSize = readCarSize();
 	numCars = readNumCars();
 	peopleWaiting = readPeopleWaiting();
+	cin.clear();
 }
 
 int readCarSize()
@@ -41,7 +42,7 @@ void displayNumRuns(int peopleWaiting, int vehicleSize)
 		int numRuns = peopleWaiting / vehicleSize;
 		if (temp != 0)
 		{
-			//since temp was non zero 1 more run is needed to get everyone through
+			//since temp was non zero one more run is needed to get everyone through
 			numRuns+= 1;
 		}
 		cout <<"number of runs needed: "<< numRuns << endl;

@@ -16,15 +16,12 @@ int main()
 	int numCars = 0;
 	int vehicleSize = 0;
 	int peopleWaiting = 0;
-
-	//execute in a loop
-	while (!cin.eof())
+	//execute in a loop until user says quit
+	while (cin.peek() != 'q')
 	{
 		readInput(carSize, numCars, peopleWaiting);
 		vehicleSize = calculateVehicleSize(carSize, numCars);
 		displayNumRuns(peopleWaiting, vehicleSize);
-
 	}
-
 	return 0;
 }
