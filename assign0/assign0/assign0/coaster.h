@@ -1,3 +1,13 @@
+/*
+* James Felts
+* Compilers used
+* Visual C++  2013
+* G++ 4.9.2
+* 
+* Time took
+* 30 minutes
+*/
+
 #ifndef COASTER_H
 #define COASTER_H
 #include <iostream>

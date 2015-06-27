@@ -1,0 +1,15 @@
+4 4 16
+4 4 32
+4 4 33
+8 5 50
+3 10 29
+0 0 0
+number of runs needed: 1
+number of runs needed: 2
+number of runs needed: 3
+number of runs needed: 2
+number of runs needed: 1
+
+vehicle has no size!
+
+
