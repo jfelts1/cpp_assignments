@@ -8,7 +8,7 @@ void readInput(int& carSize, int& numCars, int& peopleWaiting);
 int readCarSize();
 int readNumCars();
 int readPeopleWaiting();
-int calculateNumRuns(int peopleWaiting, int vehicleSize);
+void displayNumRuns(int peopleWaiting, int vehicleSize);
 
 
 #endif

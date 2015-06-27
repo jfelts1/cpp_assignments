@@ -33,17 +33,22 @@ int readPeopleWaiting()
 	return temp;
 }
 
-int calculateNumRuns(int peopleWaiting, int vehicleSize)
+void displayNumRuns(int peopleWaiting, int vehicleSize)
 {
-	int temp = peopleWaiting % vehicleSize;
-	int temp2 = peopleWaiting / vehicleSize;
-	if (temp == 0)
+	if(vehicleSize != 0)
 	{
-		return temp2;
+		int temp = peopleWaiting % vehicleSize;
+		int numRuns = peopleWaiting / vehicleSize;
+		if (temp != 0)
+		{
+			//since temp was non zero 1 more run is needed to get everyone through
+			numRuns+= 1;
+		}
+		cout <<"number of runs needed: "<< numRuns << endl;
 	}
 	else
 	{
-		//since temp was non zero 1 more run is needed to get everyone through
-		return temp2 + 1;
+		cout << "vehicle has no size!" << endl;
 	}
+	
 }
