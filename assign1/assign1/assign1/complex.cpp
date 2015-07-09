@@ -40,6 +40,20 @@ Complex Complex::operator*(const Complex& in)const
 	return out;
 }
 
+bool Complex::operator==(const Complex& in)const
+{
+	if (_realPart == in.getRealPart() && _imaginaryPart == in.getImaginaryPart())
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Complex::operator!=(const Complex& in)const
+{
+	return !(*this == in);
+}
+
 ostream& operator<<(ostream& out, const Complex& complex)
 {
 	complex.displayRealPart();
@@ -49,8 +63,6 @@ ostream& operator<<(ostream& out, const Complex& complex)
 	{
 		out << 0;
 	}
-
-	out << endl;
 	return out;
 }
 
@@ -100,9 +112,9 @@ istream& operator>>(istream& in, Complex& complex)
 	}
 	else
 	{
-		int delimIndex = complex.findDelimIndex(s, n);
-		complex._imaginaryPart = complex.findImaginaryPart(s, delimIndex,n);
-		complex._realPart = complex.findRealPart(s, delimIndex);
+		int delimIndex = findDelimIndex(s, n);
+		complex.setImaginaryPart(s, delimIndex,n);
+		complex.setRealPart(s, delimIndex);
 
 	}
 
@@ -110,7 +122,7 @@ istream& operator>>(istream& in, Complex& complex)
 	return in;
 }
 
-int Complex::findDelimIndex(const string& in, const string::size_type& pos)
+int findDelimIndex(const string& in, const string::size_type& pos)
 {
 	int index = pos;
 	int delimIndex = 0;
@@ -128,23 +140,23 @@ int Complex::findDelimIndex(const string& in, const string::size_type& pos)
 	return delimIndex;
 }
 
-double Complex::findImaginaryPart(const string& in, const int& delimIndex, const string::size_type& iPos)
+void Complex::setImaginaryPart(const string& in, const int& delimIndex, const string::size_type& iPos)
 {
 	string imag = in.substr(delimIndex, iPos-delimIndex);
-	return stod(imag);
+	_imaginaryPart = stod(imag);
 }
 
-double Complex::findRealPart(const string& in, const int& delimIndex)
+void Complex::setRealPart(const string& in, const int& delimIndex)
 {
 	//if the delim is the first thing in the string the real part is 0
 	if (delimIndex != 0)
 	{
 		string real = in.substr(0, delimIndex);
-		return stod(real);
+		_realPart = stod(real);
 	}
 	else
 	{
-		return 0;
+		_realPart = 0;
 	}
 
 }
