@@ -66,7 +66,7 @@ ostream& operator<<(ostream& out, const Complex& complex)
 	return out;
 }
 
-void Complex::displayRealPart()const
+inline void Complex::displayRealPart()const
 {
 	if (getRealPart() != 0)
 	{
@@ -79,7 +79,7 @@ void Complex::displayRealPart()const
 	}
 }
 
-void Complex::displayImaginaryPart()const
+inline void Complex::displayImaginaryPart()const
 {
 	if (getImaginaryPart() != 0)
 	{
@@ -122,7 +122,7 @@ istream& operator>>(istream& in, Complex& complex)
 	return in;
 }
 
-int findDelimIndex(const string& in, const string::size_type& pos)
+inline int findDelimIndex(const string& in, const string::size_type& pos)
 {
 	int index = pos;
 	int delimIndex = 0;
@@ -140,13 +140,24 @@ int findDelimIndex(const string& in, const string::size_type& pos)
 	return delimIndex;
 }
 
-void Complex::setImaginaryPart(const string& in, const int& delimIndex, const string::size_type& iPos)
+inline void Complex::setImaginaryPart(const string& in, const int& delimIndex, const string::size_type& iPos)
 {
-	string imag = in.substr(delimIndex, iPos-delimIndex);
-	_imaginaryPart = stod(imag);
+	if (in == "i")
+	{
+		_imaginaryPart = 1;
+	}
+	else if (in == "-i")
+	{
+		_imaginaryPart = -1;
+	}
+	else
+	{
+		string imag = in.substr(delimIndex, iPos-delimIndex);
+		_imaginaryPart = stod(imag);
+	}
 }
 
-void Complex::setRealPart(const string& in, const int& delimIndex)
+inline void Complex::setRealPart(const string& in, const int& delimIndex)
 {
 	//if the delim is the first thing in the string the real part is 0
 	if (delimIndex != 0)

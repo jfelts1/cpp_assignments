@@ -1,5 +1,8 @@
 /*
  * James Felts
+ * Compilers Used
+ * Visual C++ 2013
+ *
  */
 
 #ifndef COMPLEX_H
