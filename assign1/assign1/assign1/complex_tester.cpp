@@ -1,5 +1,15 @@
+/*
+ * James Felts
+ * Compilers Used
+ * Visual C++ 2013
+ * g++ 4.92
+ * 
+ * doesn't handle spaces in input but can handle certain expressions like
+ * just i or -i or simpily numbers like 5 or -9
+ */
 #include "complex.h"
 #include <limits>
+#define MENUSIZE 8
 
 bool menu(Complex& c1, Complex& c2);
 void getComplexValueFromUser(Complex& complex);
@@ -35,7 +45,7 @@ bool menu(Complex& c1, Complex& c2)
 	cout << "c2 = " << c2 << endl<<endl;
 
 	cin >> choice;
-	while (choice > 8 || choice < 1)
+	while (choice > MENUSIZE || choice < 1)
 	{
 		cout << "Invalid Input\n" << endl; 
 		cin >> choice;

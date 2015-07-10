@@ -1,3 +1,12 @@
+/*
+ * James Felts
+ * Compilers Used
+ * Visual C++ 2013
+ * g++ 4.92
+ * 
+ * doesn't handle spaces in input but can handle certain expressions like
+ * just i or -i or simpily numbers like 5 or -9
+ */
 #include "complex.h"
 
 Complex::Complex(double realPart, double imaginaryPart)
