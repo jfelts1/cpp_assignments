@@ -1,3 +1,14 @@
+/*
+* James Felts
+* should be able to handle up to (2^64) digit numbers in theory
+* limited to about 16000 digits due to string length limitions
+*
+* no multiplication and substraction is buggy
+*
+* compilers used
+* Visual c++ 2013 targeting x64
+* g++ 4.9.2 doesn't compile
+*/
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #pragma once
