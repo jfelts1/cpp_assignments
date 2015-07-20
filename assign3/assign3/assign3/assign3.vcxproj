@@ -66,20 +66,25 @@
   <ItemGroup>
     <ClInclude Include="Box.h" />
     <ClInclude Include="Crate.h" />
+    <ClInclude Include="FileUtils.h" />
     <ClInclude Include="Letter.h" />
     <ClInclude Include="MetalCrate.h" />
     <ClInclude Include="Package.h" />
     <ClInclude Include="PackageException.h" />
+    <ClInclude Include="PackageFactory.h" />
     <ClInclude Include="Truck.h" />
     <ClInclude Include="WoodCrate.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Crate.cpp" />
+    <ClCompile Include="FileUtils.cpp" />
     <ClCompile Include="Letter.cpp" />
     <ClCompile Include="MetalCrate.cpp" />
     <ClCompile Include="Package.cpp" />
     <ClCompile Include="PackageException.cpp" />
+    <ClCompile Include="PackageFactory.cpp" />
+    <ClCompile Include="Tester.cpp" />
     <ClCompile Include="Truck.cpp" />
     <ClCompile Include="WoodCrate.cpp" />
   </ItemGroup>

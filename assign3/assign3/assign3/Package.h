@@ -1,6 +1,7 @@
 #ifndef PACKAGE_H
 #define PACKAGE_H
 #pragma once
+#include <string>
 class Package
 {
 public:
@@ -8,12 +9,14 @@ public:
 	virtual ~Package();
 	double getWeight(){return _weight;}
 	int getTrackingNumber(){ return _trackingNunber; }
-	virtual double getShippingCost()const = 0;
+	double getShippingCost(){ return _shippingCost; }
+	virtual std::string getName()const = 0;
+	virtual double getPricePerLb()const = 0;
+	virtual double getMaxWeight()const = 0;
 private:
 	double _weight=0;
 	int _trackingNunber=0;
 	double _shippingCost=0;
-	
 };
 
 #endif

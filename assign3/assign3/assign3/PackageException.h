@@ -8,7 +8,7 @@ class PackageException :
 	public Package, public std::exception
 {
 public:
-	PackageException(int trackingNumber, double weight, double shippingCost) :Package(trackingNumber, weight, shippingCost){};
+	PackageException(int trackingNumber, double weight, double shippingCost,const char* message) :Package(trackingNumber, weight, shippingCost),exception(message){};
 	virtual ~PackageException();
 };
 
