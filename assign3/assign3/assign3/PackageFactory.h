@@ -1,0 +1,4 @@
+#ifndef PACKAGEFACTORY_H
+#define PACKAGEFACTORY_H
+
+#endif
