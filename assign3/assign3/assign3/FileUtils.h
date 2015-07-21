@@ -4,8 +4,18 @@
 #include <string>
 #include <iostream>
 #include <cstring>
-#define BUFFERSIZE 1024
+#include <vector>
+#include <array>
+#include <ctime>
+#include <cstring>
+#define BUFFERSIZE 100
+#define MANIFEST_HEADER_SIZE 4
 
-std::string loadManifestFile();
+std::ifstream& openManifestFile(std::ifstream& fin);
+std::array<std::string, MANIFEST_HEADER_SIZE> readManifestHeader(std::ifstream&fin);
+std::vector<std::string> readManifestBody(std::ifstream& fin);
+
+std::ofstream& openLogFile(std::ofstream& fout);
+void log(std::string message);
 
 #endif
