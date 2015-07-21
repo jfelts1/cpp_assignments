@@ -11,7 +11,7 @@ class PackageException :
 public:
 	PackageException(int trackingNumber, double weight, double shippingCost, const char* message) :Package(trackingNumber, weight, shippingCost), exception() { _message = message; };
 	virtual ~PackageException() {};
-	virtual const char* what()const override { return _message; }
+	virtual const char* what()const noexcept override { return _message; }
 private:
 	const char* _message;
 };
