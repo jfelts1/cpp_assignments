@@ -7,7 +7,6 @@
 #include <vector>
 #include <array>
 #include <ctime>
-#include <cstring>
 #define BUFFERSIZE 100
 #define MANIFEST_HEADER_SIZE 4
 

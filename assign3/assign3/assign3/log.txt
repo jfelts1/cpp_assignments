@@ -1,1 +1,6 @@
-Tue Jul 21 11:31:37 2015: Big Dan Driver has scheduled a trip from Spokane to San Fransisco. Base Weight is 10000.000000.
+Tue Jul 21 12:20:42 2015
+Name: Big Dan Driver
+Origin City: Spokane
+Destination City: San Fransisco
+Base Weight: 10000.000000
+

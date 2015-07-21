@@ -6,7 +6,7 @@ Truck::Truck(std::array<std::string, MANIFEST_HEADER_SIZE> in)
 	_name = in[0];
 	_baseWeight = _curWeight = stod(in[1]);
 	newTrip(in[2], in[3]);
-	log(_name + " has scheduled a trip from " + _originCity + " to " + _destCity + ". Base Weight is " + to_string(_baseWeight)+".");
+	log("Name: "+ _name + "\nOrigin City: " + _originCity + "\nDestination City: " + _destCity + "\nBase Weight: " + to_string(_baseWeight)+"\n");
 }
 
 Truck::~Truck()

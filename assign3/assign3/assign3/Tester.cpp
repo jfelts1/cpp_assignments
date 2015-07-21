@@ -1,5 +1,9 @@
 /*
 * James Felts
+*
+* Compilers Used
+* Visual C++ 2015
+* g++ 4.9.2
 */
 
 #include "FileUtils.h"
@@ -12,7 +16,6 @@
 #include <array>
 #include <cstdlib>
 using namespace std;
-
 
 int main()
 {

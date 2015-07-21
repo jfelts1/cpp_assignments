@@ -65,7 +65,7 @@ void log(std::string message)
 	openLogFile(fout);
 	char buf[BUFFERSIZE] = "";
 	struct tm newTime;
-	//apprantly there is no safe time handling standard  in C or C++
+	//apprantly there is no safe time handling standard in C or C++
 #ifdef _WIN32
 	__int64 ltime;
 	_time64(&ltime);
@@ -76,11 +76,11 @@ void log(std::string message)
 	time(&ltime);
 	asctime_r(gmtime_r(&ltime, &newTime), buf);
 #endif
-	//removing a newline that is ugly
+	/*//removing a newline that is ugly
 	char* nl = strrchr(buf, '\n');
-	*nl = '\0';
+	*nl = '\0';*/
 
-	fout << buf << ": ";
+	fout << buf;
 	fout << message << endl;
 	fout.close();
 }
