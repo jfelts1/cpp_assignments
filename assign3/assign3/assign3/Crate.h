@@ -7,7 +7,7 @@ class Crate :
 {
 public:
 	Crate(int trackingNumber=0, double weight=0, double shippingCost=0) :Package(trackingNumber, weight, shippingCost){};
-	virtual ~Crate();
+	virtual ~Crate() {};
 };
 
 #endif

@@ -7,6 +7,9 @@ class WoodCrate :
 {
 public:
 	WoodCrate(int trackingNumber, double weight, double shippingCost) :Crate(trackingNumber, weight, shippingCost){};
-	virtual ~WoodCrate();
+	virtual ~WoodCrate() {};
+	virtual std::string getName()const override { return "Wood Crate"; }
+	virtual double getPricePerLb()const override { return 2.5; }
+	virtual double getMaxWeight()const override { return 80; }
 };
 #endif

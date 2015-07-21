@@ -1,15 +1,19 @@
-#include "Box.h"
-#include "Crate.h"
+/*
+* James Felts
+*/
+
 #include "FileUtils.h"
-#include "Letter.h"
-#include "MetalCrate.h"
-#include "Package.h"
 #include "PackageException.h"
 #include "PackageFactory.h"
 #include "Truck.h"
-#include "WoodCrate.h"
+using namespace std;
+
 
 int main()
 {
+	string s;
+
+	s = loadManifestFile();
+	cout << s << endl;
 	return 0;
 }

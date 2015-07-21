@@ -9,7 +9,7 @@ class PackageException :
 {
 public:
 	PackageException(int trackingNumber, double weight, double shippingCost,const char* message) :Package(trackingNumber, weight, shippingCost),exception(message){};
-	virtual ~PackageException();
+	virtual ~PackageException() {};
 };
 
 #endif
