@@ -66,7 +66,7 @@ void log(std::string message)
 	char buf[BUFFERSIZE] = "";
 	struct tm newTime;
 	//apprantly there is no safe time handling standard  in C or C++
-#ifndef WIN32
+#ifdef _WIN32
 	__int64 ltime;
 	_time64(&ltime);
 	_gmtime64_s(&newTime, &ltime);
