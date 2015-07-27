@@ -3,7 +3,7 @@
 *
 * Compilers Used
 * Visual C++ 2015 x64 target
-* g++ 4.9.2
+* g++ 4.9.2 using -std=c++14
 */
 
 #include "FileUtils.h"
@@ -20,7 +20,7 @@ using namespace std;
 int main()
 {
 	ManifestHeader manifestHeader;
-	vector<string> manifestBody;
+	vector<ManifestEntry> manifestBody;
 
 	ifstream fin;
 	openManifestFile(fin);

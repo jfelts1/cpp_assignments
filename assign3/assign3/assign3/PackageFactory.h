@@ -11,7 +11,7 @@
 #include <memory>
 #include <string>
 
-std::unique_ptr<Package>& packageFactory(std::vector<std::string> s);
+std::unique_ptr<Package> packageFactory(ManifestEntry in);
 
 
 

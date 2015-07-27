@@ -1,11 +1,11 @@
 #include "Package.h"
 
 
-Package::Package(int trackingNumber,double weight,double shippingCost)
+Package::Package(int trackingNumber,double weight)
 {
 	_weight = weight;
 	_trackingNunber = trackingNumber; 
-	_shippingCost = shippingCost;
+	_shippingCost = weight*getPricePerLb();
 }
 
 

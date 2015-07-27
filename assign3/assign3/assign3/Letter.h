@@ -7,7 +7,7 @@ class Letter :
 	public Package
 {
 public:
-	Letter(int trackingNumber, double weight, double shippingCost) :Package(trackingNumber, weight, shippingCost){};
+	Letter(int trackingNumber, double weight) :Package(trackingNumber, weight){};
 	virtual ~Letter() {};
 	virtual std::string getName()const override { return "Letter"; }
 	virtual double getPricePerLb()const override { return 0.05/OZ_PER_POUND; }
