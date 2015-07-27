@@ -6,10 +6,12 @@
 #include "MetalCrate.h"
 #include "PackageException.h"
 #include "WoodCrate.h"
+#include "Truck.h"
 #include <vector>
 #include <memory>
+#include <string>
 
-
+std::unique_ptr<Package>& packageFactory(std::vector<std::string> s);
 
 
 

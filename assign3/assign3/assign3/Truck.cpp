@@ -1,11 +1,12 @@
 #include "Truck.h"
+#include "PackageException.h"
 using namespace std;
 
-Truck::Truck(std::array<std::string, MANIFEST_HEADER_SIZE> in)
+Truck::Truck(ManifestHeader in)
 {
-	_name = in[0];
-	_baseWeight = _curWeight = stod(in[1]);
-	newTrip(in[2], in[3]);
+	_name = in.getDriverName();
+	_baseWeight = _curWeight = in.getBaseWeight();
+	newTrip(in.getOriginCity(), in.getDestCity());
 	log("Name: "+ _name + "\nOrigin City: " + _originCity + "\nDestination City: " + _destCity + "\nBase Weight: " + to_string(_baseWeight)+"\n");
 }
 
@@ -19,7 +20,22 @@ void Truck::newTrip(std::string originCity, std::string destCity)
 	_destCity = destCity;
 }
 
-void Truck::loadTruck(std::unique_ptr<vector<Package>>& cargo)
+void Truck::loadTruck(unique_ptr<Package>& pack)
 {
-	_cargo = move(cargo);
+	if (_numPackagesLoaded < PackageLimit)
+	{
+		_cargo->push_back(move(pack));
+
+		vector<unique_ptr<Package>>* temp = _cargo.get();
+		Package* temp2 = temp->back().get();
+
+		_curWeight += temp2->getWeight();
+		_curShippingCost += temp2->getShippingCost();
+		_numPackagesLoaded++;
+		log("Package #" + to_string(_numPackagesLoaded+1) + "\nTracking Number: " + to_string(temp2->getTrackingNumber())+"\nWeight: "+to_string(temp2->getWeight())+"\nShipping Cost: "+to_string(temp2->getShippingCost()));
+	}
+	else
+	{
+		throw new PackageException(pack,"Truck is full.");
+	}
 }

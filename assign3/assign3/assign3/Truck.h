@@ -11,18 +11,19 @@
 class Truck
 {
 public:
-	Truck(std::array<std::string,MANIFEST_HEADER_SIZE> in);
+	Truck(ManifestHeader in);
 	virtual ~Truck();
 	const int PackageLimit = 500;
 
 	int getNumPackagesLoaded()const { return _numPackagesLoaded; }
 	double getCurWeight()const { return _curWeight; }
 	double getBaseWeight()const { return _baseWeight; }
+	double getCurShippingCost()const{return _curShippingCost;}
 	std::string getDriverName() const { return _name; }
 	std::string getOriginCity()const{return _originCity;}
 	std::string getDestCity()const { return _destCity; }
 	void newTrip(std::string originCity, std::string destCity);
-	void loadTruck(std::unique_ptr<std::vector<Package>>& cargo);
+	void loadTruck(std::unique_ptr<Package>& pack);
 private:
 	int _numPackagesLoaded=0;
 	std::string _name = "";
@@ -30,7 +31,8 @@ private:
 	std::string _destCity = "";
 	double _curWeight = 0;
 	double _baseWeight = 0;
-	std::unique_ptr<std::vector<Package>> _cargo = nullptr;
+	double _curShippingCost = 0;
+	std::unique_ptr<std::vector<std::unique_ptr<Package>>> _cargo = std::make_unique<std::vector<std::unique_ptr<Package>>>();
 };
 
 #endif

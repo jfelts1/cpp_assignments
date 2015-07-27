@@ -2,7 +2,7 @@
 * James Felts
 *
 * Compilers Used
-* Visual C++ 2015
+* Visual C++ 2015 x64 target
 * g++ 4.9.2
 */
 
@@ -19,7 +19,7 @@ using namespace std;
 
 int main()
 {
-	array<string, MANIFEST_HEADER_SIZE> manifestHeader;
+	ManifestHeader manifestHeader;
 	vector<string> manifestBody;
 
 	ifstream fin;
@@ -35,7 +35,7 @@ int main()
 	Truck tr(manifestHeader);
 
 
-	for (string str : manifestHeader)
+	/*for (string str : manifestHeader)
 	{
 		cout << str << "\n";
 	}
@@ -45,7 +45,7 @@ int main()
 	{
 		cout << str << "\n";
 	}
-	cout << endl;
+	cout << endl;*/
 	
 	return 0;
 }

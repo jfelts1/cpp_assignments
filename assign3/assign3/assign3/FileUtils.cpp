@@ -17,7 +17,7 @@ ifstream& openManifestFile(ifstream& fin)
 	return fin;
 }
 
-std::array<std::string, MANIFEST_HEADER_SIZE> readManifestHeader(std::ifstream& fin)
+ManifestHeader readManifestHeader(std::ifstream& fin)
 {
 	array<string, MANIFEST_HEADER_SIZE> out;
 	char buf[BUFFERSIZE]="";
@@ -29,7 +29,7 @@ std::array<std::string, MANIFEST_HEADER_SIZE> readManifestHeader(std::ifstream& 
 		memset(buf, 0, BUFFERSIZE);
 	}
 
-	return out;
+	return ManifestHeader(out);
 }
 
 std::vector<std::string> readManifestBody(std::ifstream & fin)
@@ -83,4 +83,9 @@ void log(std::string message)
 	fout << buf;
 	fout << message << endl;
 	fout.close();
+}
+
+ManifestHeader::ManifestHeader(array<string,MANIFEST_HEADER_SIZE> data)
+{
+	_data = data;
 }
