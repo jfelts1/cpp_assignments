@@ -41,7 +41,7 @@ std::vector<ManifestEntry> readManifestBody(std::ifstream & fin)
 	{
 		fin.getline(&buf[0], BUFFERSIZE);
 		fin.getline(&buf2[0], BUFFERSIZE);
-		out.push_back(ManifestEntry(array < string, MANIFEST_ENTRY_SIZE >() = {buf, buf2}));
+		out.push_back(ManifestEntry(array < string, MANIFEST_ENTRY_SIZE >() = {buf2, buf}));
 		memset(buf, 0, BUFFERSIZE);
 		memset(buf2, 0, BUFFERSIZE);
 	}

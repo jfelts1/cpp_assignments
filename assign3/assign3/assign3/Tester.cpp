@@ -13,7 +13,6 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
-#include <array>
 #include <cstdlib>
 using namespace std;
 
@@ -34,18 +33,19 @@ int main()
 
 	Truck tr(manifestHeader);
 
-
-	/*for (string str : manifestHeader)
+	unique_ptr<Package> temp;
+	for (ManifestEntry entry : manifestBody)
 	{
-		cout << str << "\n";
+		try
+		{
+			temp = packageFactory(entry);
+			tr.loadTruck(temp);
+		}
+		catch (const PackageException& e)
+		{
+			log(string(e.what()) + "\nPackage: " + e.getNameOfPackage()+"\nTracking Number: "+to_string(e.getPackageTrackingNumber())+"\nWeight"+ to_string(e.getPackageWeight())+"\n");
+		}
 	}
-	cout << endl;
 
-	for (string str : manifestBody)
-	{
-		cout << str << "\n";
-	}
-	cout << endl;*/
-	
 	return 0;
 }

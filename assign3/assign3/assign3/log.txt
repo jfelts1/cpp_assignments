@@ -1,6 +1,0 @@
-Tue Jul 21 12:20:42 2015
-Name: Big Dan Driver
-Origin City: Spokane
-Destination City: San Fransisco
-Base Weight: 10000.000000
-

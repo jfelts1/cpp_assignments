@@ -32,10 +32,10 @@ void Truck::loadTruck(unique_ptr<Package>& pack)
 		_curWeight += temp2->getWeight();
 		_curShippingCost += temp2->getShippingCost();
 		_numPackagesLoaded++;
-		log("Package #" + to_string(_numPackagesLoaded+1) + "\nTracking Number: " + to_string(temp2->getTrackingNumber())+"\nWeight: "+to_string(temp2->getWeight())+"\nShipping Cost: "+to_string(temp2->getShippingCost()));
+		log("Package #" + to_string(_numPackagesLoaded+1) + "\nTracking Number: " + to_string(temp2->getTrackingNumber())+"\nWeight: "+to_string(temp2->getWeight())+"\nShipping Cost: "+to_string(temp2->getShippingCost())+"\n");
 	}
 	else
 	{
-		throw new PackageException(pack,"Truck is full.");
+		throw PackageException(pack,"Truck is full.");
 	}
 }

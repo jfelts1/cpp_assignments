@@ -1,48 +1,51 @@
 #include "PackageFactory.h"
 using namespace std;
 
-std::unique_ptr<Package> packageFactory(ManifestEntry in)
+std::unique_ptr<Package> packageFactory(ManifestEntry entry)
 {
 	unique_ptr<Package> pack;
-	int trackNum = in.getEntryTrackingNumber();
-	double weight = in.getEntryWeight();
-	string trNum = in.getEntryTrackingNumberString();
+	
+	string trNum = entry.getEntryTrackingNumberString();
 
-	if (trNum.back() == '0')//letter
+	try
 	{
-		pack = make_unique<Letter>(trackNum, weight, pricePerLbMap.at("Letter")*weight);
-		if (weight > maxWeightMap.at("Letter"))
+		if (trNum.back() == '0')//letter
 		{
-			throw new PackageException(pack, "Package too heavy");
+			packageFactoryHelper(pack, entry, "Letter");
+		}
+		else if (trNum.back() == '1')//box
+		{
+			packageFactoryHelper(pack, entry, "Box");
+		}
+		else if (trNum.back() == '2')//wooden crate
+		{
+			packageFactoryHelper(pack, entry, "Wood Crate");
+		}
+		else if (trNum.back() == '3')//metal crate
+		{
+			packageFactoryHelper(pack, entry, "Metal Crate");
+		}
+		else
+		{
+			throw PackageException("Unknown Package");
 		}
 	}
-	else if (trNum.back() == '1')//box
+	catch (const PackageException&)
 	{
-		pack = make_unique<Box>(trackNum, weight, pricePerLbMap.at("Box")*weight);
-		if (weight > maxWeightMap.at("Box"))
-		{
-			throw new PackageException(pack, "Package too heavy");
-		}
-	}
-	else if (trNum.back() == '2')//wooden crate
-	{
-		pack = make_unique<WoodCrate>(trackNum, weight, pricePerLbMap.at("Wood Crate")*weight);
-		if (weight > maxWeightMap.at("Wood Crate"))
-		{
-			throw new PackageException(pack, "Package too heavy");
-		}
-	}
-	else if (trNum.back() == '3')//metal crate
-	{
-		pack = make_unique<MetalCrate>(trackNum, weight, pricePerLbMap.at("Metal Crate")*weight);
-		if (weight > maxWeightMap.at("Metal Crate"))
-		{
-			throw new PackageException(pack, "Package too heavy");
-		}
-	}
-	else
-	{
-		throw new PackageException(pack, "Unkown Package");
+		throw;
 	}
 	return pack;
+}
+
+inline void packageFactoryHelper(std::unique_ptr<Package>& pack, ManifestEntry entry,string packName)
+{
+	int trackNum = entry.getEntryTrackingNumber();
+	double weight = entry.getEntryWeight();
+
+	pack = make_unique<MetalCrate>(trackNum, weight, pricePerLbMap.at(packName)*weight);
+	if (weight > maxWeightMap.at(packName))
+	{
+		throw PackageException(pack, "Package too heavy");
+	}
+
 }

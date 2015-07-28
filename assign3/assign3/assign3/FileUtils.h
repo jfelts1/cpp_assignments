@@ -8,7 +8,7 @@
 #include <array>
 #include <ctime>
 #define BUFFERSIZE 100
-#define MANIFEST_HEADER_SIZE 4
+#define MANIFEST_HEADER_SIZE 5
 #define MANIFEST_ENTRY_SIZE 2
 
 class ManifestHeader
