@@ -1,5 +1,7 @@
 #include "PackageFactory.h"
-using namespace std;
+using std::string;
+using std::unique_ptr;
+using std::make_unique;
 
 std::unique_ptr<Package> packageFactory(ManifestEntry entry)
 {

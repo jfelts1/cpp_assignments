@@ -1,5 +1,12 @@
 #include "FileUtils.h"
-using namespace std;
+using std::string;
+using std::ifstream;
+using std::ofstream;
+using std::cerr;
+using std::array;
+using std::vector;
+using std::ios_base;
+using std::endl;
 
 const string manifestFileName = "manifest.txt";
 const string logFileName = "log.txt";

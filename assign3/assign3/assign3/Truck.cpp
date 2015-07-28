@@ -1,6 +1,9 @@
 #include "Truck.h"
 #include "PackageException.h"
-using namespace std;
+using std::string;
+using std::unique_ptr;
+using std::vector;
+using std::to_string;
 
 Truck::Truck(ManifestHeader in)
 {

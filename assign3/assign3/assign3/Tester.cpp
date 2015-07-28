@@ -14,7 +14,11 @@
 #include <algorithm>
 #include <iterator>
 #include <cstdlib>
-using namespace std;
+using std::string;
+using std::unique_ptr;
+using std::vector;
+using std::ifstream;
+using std::to_string;
 
 int main()
 {
