@@ -6,11 +6,9 @@ class MetalCrate :
 	public Crate
 {
 public:
-	MetalCrate(int trackingNumber, double weight) :Crate(trackingNumber, weight){};
+	MetalCrate(int trackingNumber, double weight,double shippingCost) :Crate(trackingNumber, weight,shippingCost){};
 	virtual ~MetalCrate() {};
 	virtual std::string getName()const override { return "Metal Crate"; }
-	virtual double getPricePerLb()const override { return 3; }
-	virtual double getMaxWeight()const override { return 100; }
 };
 
 #endif
