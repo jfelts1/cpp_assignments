@@ -7,7 +7,18 @@ PackageException::PackageException(std::unique_ptr<Package>& pack, const char * 
 	_packageWeight = pack->getWeight();
 }
 
+PackageException::PackageException(std::unique_ptr<Package>& pack, std::string message) :runtime_error(message.c_str())
+{
+	_packageName = pack->getName();
+	_packageTrackingNumber = pack->getTrackingNumber();
+	_packageWeight = pack->getWeight();
+}
+
 PackageException::PackageException(const char * message):runtime_error(message)
+{
+}
+
+PackageException::PackageException(std::string message):runtime_error(message.c_str())
 {
 }
 
