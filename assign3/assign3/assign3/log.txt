@@ -1,0 +1,108 @@
+Tue Jul 28 10:16:28 2015
+Name: Big Dan Driver
+Origin City: Spokane
+Destination City: San Fransisco
+Base Weight: 10000.000000
+
+Tue Jul 28 10:16:28 2015
+Package too heavy
+Package: Letter
+Tracking Number: 123450
+Weight10.000000
+
+Tue Jul 28 10:16:28 2015
+Package #2
+Tracking Number: 5555551
+Weight: 40.000000
+Shipping Cost: 80.000000
+
+Tue Jul 28 10:16:28 2015
+Package #3
+Tracking Number: 123892
+Weight: 80.000000
+Shipping Cost: 200.000000
+
+Tue Jul 28 10:16:28 2015
+Package #4
+Tracking Number: 656563
+Weight: 100.000000
+Shipping Cost: 300.000000
+
+Tue Jul 28 10:16:28 2015
+Unknown Package
+Package: Unknown
+Tracking Number: 0
+Weight0.000000
+
+Tue Jul 28 10:16:28 2015
+Package too heavy
+Package: Letter
+Tracking Number: 879880
+Weight33.000000
+
+Tue Jul 28 10:16:28 2015
+Package #5
+Tracking Number: 890980
+Weight: 2.000000
+Shipping Cost: 0.006250
+
+Tue Jul 28 10:16:28 2015
+Package #6
+Tracking Number: 11111
+Weight: 39.000000
+Shipping Cost: 78.000000
+
+Tue Jul 28 10:18:42 2015
+Name: Big Dan Driver
+Origin City: Spokane
+Destination City: San Fransisco
+Base Weight: 10000.000000
+
+Tue Jul 28 10:18:42 2015
+Package too heavy
+Package: Letter
+Tracking Number: 123450
+Weight10.000000
+
+Tue Jul 28 10:18:42 2015
+Package #2
+Tracking Number: 5555551
+Weight: 40.000000
+Shipping Cost: 80.000000
+
+Tue Jul 28 10:18:42 2015
+Package #3
+Tracking Number: 123892
+Weight: 80.000000
+Shipping Cost: 200.000000
+
+Tue Jul 28 10:18:42 2015
+Package #4
+Tracking Number: 656563
+Weight: 100.000000
+Shipping Cost: 300.000000
+
+Tue Jul 28 10:18:42 2015
+Unknown Package
+Package: Unknown
+Tracking Number: 0
+Weight0.000000
+
+Tue Jul 28 10:18:42 2015
+Package too heavy
+Package: Letter
+Tracking Number: 879880
+Weight33.000000
+
+Tue Jul 28 10:18:42 2015
+Package #5
+Tracking Number: 890980
+Weight: 2.000000
+Shipping Cost: 0.006250
+
+Tue Jul 28 10:18:42 2015
+Package #6
+Tracking Number: 11111
+Weight: 39.000000
+Shipping Cost: 78.000000
+
