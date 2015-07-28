@@ -7,8 +7,8 @@ class Letter :
 	public Package
 {
 public:
-	Letter(int trackingNumber, double weight,double shippingCost) :Package(trackingNumber, weight,shippingCost){};
-	virtual ~Letter() {};
+	Letter(int trackingNumber, double weight,double shippingCost) :Package(trackingNumber, weight,shippingCost){}
+	virtual ~Letter() {}
 	virtual const std::string getName()const override { return "Letter"; }
 };
 #endif

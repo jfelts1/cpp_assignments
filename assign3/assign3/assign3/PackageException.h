@@ -24,7 +24,7 @@ public:
 		_packageTrackingNumber = pack.getPackageTrackingNumber();
 		_packageWeight = pack.getPackageWeight();
 	}
-	virtual ~PackageException() {};
+	virtual ~PackageException() {}
 	virtual int getPackageTrackingNumber()const { return _packageTrackingNumber; }
 	virtual double getPackageWeight()const { return _packageWeight; }
 	virtual std::string getNameOfPackage()const { return _packageName; }

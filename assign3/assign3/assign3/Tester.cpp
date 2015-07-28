@@ -14,18 +14,13 @@
 #include <algorithm>
 #include <iterator>
 #include <cstdlib>
-using std::string;
-using std::unique_ptr;
-using std::vector;
-using std::ifstream;
-using std::to_string;
 
 int main()
 {
 	ManifestHeader manifestHeader;
-	vector<ManifestEntry> manifestBody;
+	std::vector<ManifestEntry> manifestBody;
 
-	ifstream fin;
+	std::ifstream fin;
 	openManifestFile(fin);
 	if (fin.bad() || fin.fail())
 	{
@@ -37,7 +32,7 @@ int main()
 
 	Truck tr(manifestHeader);
 
-	unique_ptr<Package> temp;
+	std::unique_ptr<Package> temp;
 	for (ManifestEntry entry : manifestBody)
 	{
 		try
@@ -47,7 +42,7 @@ int main()
 		}
 		catch (const PackageException& e)
 		{
-			log(string(e.what()) + "\nPackage: " + e.getNameOfPackage()+"\nTracking Number: "+to_string(e.getPackageTrackingNumber())+"\nWeight"+ to_string(e.getPackageWeight())+"\n");
+			log(std::string(e.what()) + "\nPackage: " + e.getNameOfPackage()+"\nTracking Number: "+std::to_string(e.getPackageTrackingNumber())+"\nWeight"+ std::to_string(e.getPackageWeight())+"\n");
 		}
 	}
 
