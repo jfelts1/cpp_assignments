@@ -32,7 +32,8 @@ void Truck::loadTruck(unique_ptr<Package>& pack)
 		_curWeight += temp2->getWeight();
 		_curShippingCost += temp2->getShippingCost();
 		_numPackagesLoaded++;
-		log("Package #" + to_string(_numPackagesLoaded+1) + "\nTracking Number: " + to_string(temp2->getTrackingNumber())+"\nWeight: "+to_string(temp2->getWeight())+"\nShipping Cost: "+to_string(temp2->getShippingCost())+"\n");
+		log("Loading "+temp2->getName()+"\nTracking Number: " + to_string(temp2->getTrackingNumber())+"\nWeight: "+to_string(temp2->getWeight())+\
+			"\nShipping Cost: "+to_string(temp2->getShippingCost())+"\n");
 	}
 	else
 	{
@@ -40,3 +41,27 @@ void Truck::loadTruck(unique_ptr<Package>& pack)
 		throw er;
 	}
 }
+
+void Truck::leaveOrigin()
+{
+	log("Leaving " + _originCity + "\n");
+}
+
+void Truck::arriveDest()
+{
+	log("Arrived at " + _destCity + "\n");
+}
+
+void Truck::unloadTruck()
+{
+	int i = 0;
+	for (i = 0;i < _cargo->size();i++)
+	{
+		log("Unloading "+_cargo->at(i)->getName()+"\nTracking Number: " + to_string(_cargo->at(i)->getTrackingNumber())+"\nWeight: "+to_string(_cargo->at(i)->getWeight())+\
+			"\nShipping Cost: "+to_string(_cargo->at(i)->getShippingCost())+"\n");
+		_numPackagesLoaded--;
+	}
+
+}
+
+

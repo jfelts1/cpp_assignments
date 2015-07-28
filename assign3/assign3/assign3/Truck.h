@@ -24,6 +24,9 @@ public:
 	std::string getDestCity()const { return _destCity; }
 	void newTrip(std::string originCity, std::string destCity);
 	void loadTruck(std::unique_ptr<Package>& pack);
+	void leaveOrigin();
+	void arriveDest();
+	void unloadTruck();
 private:
 	int _numPackagesLoaded=0;
 	std::string _name = "";

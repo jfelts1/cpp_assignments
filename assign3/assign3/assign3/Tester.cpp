@@ -43,9 +43,13 @@ int main()
 		}
 		catch (const PackageException& e)
 		{
-			log(string(e.what()) + "\nPackage: " + e.getNameOfPackage()+"\nTracking Number: "+to_string(e.getPackageTrackingNumber())+"\nWeight"+ to_string(e.getPackageWeight())+"\n");
+			log(string(e.what()) + "\nPackage: " + e.getNameOfPackage()+"\nTracking Number: "+to_string(e.getPackageTrackingNumber())+"\nWeight: "+ to_string(e.getPackageWeight())+"\nNot Loaded\n");
 		}
 	}
+	tr.leaveOrigin();
+	tr.arriveDest();
+	tr.unloadTruck();
+	log("Total cost: "+ to_string(tr.getCurShippingCost()));
 
 	return 0;
 }

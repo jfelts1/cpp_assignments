@@ -10,7 +10,7 @@ class PackageException :public std::runtime_error
 {
 public:
 	PackageException(std::unique_ptr<Package>& pack, const char* message);
-	PackageException(const char * message);
+	PackageException(int trackNo, double weight,const char * message);
 	PackageException(PackageException& pack);
 	virtual ~PackageException() {};
 	virtual int getPackageTrackingNumber()const { return _packageTrackingNumber; }

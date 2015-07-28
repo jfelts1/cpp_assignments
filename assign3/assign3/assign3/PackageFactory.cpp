@@ -11,7 +11,15 @@ std::unique_ptr<Package> packageFactory(ManifestEntry entry)
 	{
 		if (trNum.back() == '0')//letter
 		{
-			packageFactoryHelper<Letter>(pack, entry, "Letter");
+			int trackNum = entry.getEntryTrackingNumber();
+			double weight = entry.getEntryWeight()/OZ_PER_POUND;
+
+			pack = make_unique<Letter>(trackNum, weight, pricePerLbMap.at("Letter")*weight);
+			if (weight > maxWeightMap.at("Letter"))
+			{
+				PackageException er(pack, "Package too heavy");
+				throw er;
+			}
 		}
 		else if (trNum.back() == '1')//box
 		{
@@ -27,7 +35,7 @@ std::unique_ptr<Package> packageFactory(ManifestEntry entry)
 		}
 		else
 		{
-			PackageException er("Unknown Package");
+			PackageException er(entry.getEntryTrackingNumber(),entry.getEntryWeight(),"Unknown Package");
 			throw er;
 		}
 	}

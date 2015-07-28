@@ -1,108 +1,100 @@
-Tue Jul 28 10:16:28 2015
+Tue Jul 28 11:09:37 2015
 Name: Big Dan Driver
 Origin City: Spokane
 Destination City: San Fransisco
 Base Weight: 10000.000000
 
-Tue Jul 28 10:16:28 2015
-Package too heavy
-Package: Letter
+Tue Jul 28 11:09:37 2015
+Loading Letter
 Tracking Number: 123450
-Weight10.000000
+Weight: 0.625000
+Shipping Cost: 0.001953
 
-Tue Jul 28 10:16:28 2015
-Package #2
+Tue Jul 28 11:09:37 2015
+Loading Box
 Tracking Number: 5555551
 Weight: 40.000000
 Shipping Cost: 80.000000
 
-Tue Jul 28 10:16:28 2015
-Package #3
+Tue Jul 28 11:09:37 2015
+Loading Wood Crate
 Tracking Number: 123892
 Weight: 80.000000
 Shipping Cost: 200.000000
 
-Tue Jul 28 10:16:28 2015
-Package #4
+Tue Jul 28 11:09:37 2015
+Loading Metal Crate
 Tracking Number: 656563
 Weight: 100.000000
 Shipping Cost: 300.000000
 
-Tue Jul 28 10:16:28 2015
+Tue Jul 28 11:09:37 2015
 Unknown Package
 Package: Unknown
-Tracking Number: 0
-Weight0.000000
+Tracking Number: 3456544
+Weight: 55.000000
+Not Loaded
 
-Tue Jul 28 10:16:28 2015
+Tue Jul 28 11:09:37 2015
 Package too heavy
 Package: Letter
 Tracking Number: 879880
-Weight33.000000
+Weight: 2.062500
+Not Loaded
 
-Tue Jul 28 10:16:28 2015
-Package #5
+Tue Jul 28 11:09:37 2015
+Loading Letter
 Tracking Number: 890980
-Weight: 2.000000
-Shipping Cost: 0.006250
+Weight: 0.125000
+Shipping Cost: 0.000391
 
-Tue Jul 28 10:16:28 2015
-Package #6
+Tue Jul 28 11:09:37 2015
+Loading Box
 Tracking Number: 11111
 Weight: 39.000000
 Shipping Cost: 78.000000
 
-Tue Jul 28 10:18:42 2015
-Name: Big Dan Driver
-Origin City: Spokane
-Destination City: San Fransisco
-Base Weight: 10000.000000
+Tue Jul 28 11:09:37 2015
+Leaving Spokane
 
-Tue Jul 28 10:18:42 2015
-Package too heavy
-Package: Letter
+Tue Jul 28 11:09:37 2015
+Arrived at San Fransisco
+
+Tue Jul 28 11:09:37 2015
+Unloading Letter
 Tracking Number: 123450
-Weight10.000000
+Weight: 0.625000
+Shipping Cost: 0.001953
 
-Tue Jul 28 10:18:42 2015
-Package #2
+Tue Jul 28 11:09:37 2015
+Unloading Box
 Tracking Number: 5555551
 Weight: 40.000000
 Shipping Cost: 80.000000
 
-Tue Jul 28 10:18:42 2015
-Package #3
+Tue Jul 28 11:09:37 2015
+Unloading Wood Crate
 Tracking Number: 123892
 Weight: 80.000000
 Shipping Cost: 200.000000
 
-Tue Jul 28 10:18:42 2015
-Package #4
+Tue Jul 28 11:09:37 2015
+Unloading Metal Crate
 Tracking Number: 656563
 Weight: 100.000000
 Shipping Cost: 300.000000
 
-Tue Jul 28 10:18:42 2015
-Unknown Package
-Package: Unknown
-Tracking Number: 0
-Weight0.000000
-
-Tue Jul 28 10:18:42 2015
-Package too heavy
-Package: Letter
-Tracking Number: 879880
-Weight33.000000
-
-Tue Jul 28 10:18:42 2015
-Package #5
+Tue Jul 28 11:09:37 2015
+Unloading Letter
 Tracking Number: 890980
-Weight: 2.000000
-Shipping Cost: 0.006250
+Weight: 0.125000
+Shipping Cost: 0.000391
 
-Tue Jul 28 10:18:42 2015
-Package #6
+Tue Jul 28 11:09:37 2015
+Unloading Box
 Tracking Number: 11111
 Weight: 39.000000
 Shipping Cost: 78.000000
 
+Tue Jul 28 11:09:37 2015
+Total cost: 658.002344
