@@ -29,9 +29,55 @@ const std::map<std::string, double> maxWeightMap =
 	{ "Wood Crate",80 }
 };
 
-std::unique_ptr<Package> packageFactory(ManifestEntry in);
-void packageFactoryHelper(std::unique_ptr<Package>& pack,ManifestEntry entry,std::string packName);
+template<class T>
+inline void packageFactoryHelper(std::unique_ptr<Package>& pack, ManifestEntry entry, std::string packName)
+{
+	int trackNum = entry.getEntryTrackingNumber();
+	double weight = entry.getEntryWeight();
 
+	pack = std::make_unique<T>(trackNum, weight, pricePerLbMap.at(packName)*weight);
+	if (weight > maxWeightMap.at(packName))
+	{
+		PackageException er(pack, "Package too heavy");
+		throw er;
+	}
+}
 
+std::unique_ptr<Package> packageFactory(ManifestEntry entry)
+{
+	std::unique_ptr<Package> pack;
+
+	std::string trNum = entry.getEntryTrackingNumberString();
+
+	try
+	{
+		if (trNum.back() == '0')//letter
+		{
+			packageFactoryHelper<Letter>(pack, entry, "Letter");
+		}
+		else if (trNum.back() == '1')//box
+		{
+			packageFactoryHelper<Box>(pack, entry, "Box");
+		}
+		else if (trNum.back() == '2')//wooden crate
+		{
+			packageFactoryHelper<WoodCrate>(pack, entry, "Wood Crate");
+		}
+		else if (trNum.back() == '3')//metal crate
+		{
+			packageFactoryHelper<MetalCrate>(pack, entry, "Metal Crate");
+		}
+		else
+		{
+			PackageException er("Unkown Package");
+			throw er;
+		}
+	}
+	catch (const PackageException&)
+	{
+		throw;
+	}
+	return pack;
+}
 
 #endif

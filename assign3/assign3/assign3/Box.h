@@ -6,8 +6,8 @@ class Box :
 	public Package
 {
 public:
-	Box(int trackingNumber, double weight,double shippingCost) :Package(trackingNumber, weight,shippingCost){};
-	virtual ~Box() {};
-	virtual std::string getName()const override{ return "Box"; }
+	Box(int trackingNumber, double weight, double shippingCost) :Package(trackingNumber, weight, shippingCost) {}
+	virtual ~Box() {}
+	virtual const std::string getName()const override { return "Box"; }
 };
 #endif

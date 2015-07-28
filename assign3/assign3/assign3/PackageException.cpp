@@ -1,6 +1,6 @@
 #include "PackageException.h"
 
-PackageException::PackageException(std::unique_ptr<Package>& pack, const char * message):runtime_error(message)
+/*PackageException::PackageException(std::unique_ptr<Package>& pack, const char * message):runtime_error(message)
 {
 	_packageName = pack->getName();
 	_packageTrackingNumber = pack->getTrackingNumber();
@@ -27,4 +27,4 @@ PackageException::PackageException(PackageException& packEx):runtime_error(packE
 	_packageName = packEx.getNameOfPackage();
 	_packageTrackingNumber = packEx.getPackageTrackingNumber();
 	_packageWeight = packEx.getPackageWeight();
-}
+}*/

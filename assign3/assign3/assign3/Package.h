@@ -11,7 +11,7 @@ public:
 	double getWeight(){return _weight;}
 	int getTrackingNumber(){ return _trackingNunber; }
 	double getShippingCost(){ return _shippingCost; }
-	virtual std::string getName()const = 0;
+	virtual const std::string getName()const = 0;
 private:
 	double _weight=0;
 	int _trackingNunber=0;

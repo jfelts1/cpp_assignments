@@ -39,6 +39,7 @@ void Truck::loadTruck(unique_ptr<Package>& pack)
 	}
 	else
 	{
-		throw PackageException(pack,"Truck is full.");
+		PackageException er(pack, "Truck is full");
+		throw er;
 	}
 }
