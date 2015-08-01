@@ -100,7 +100,6 @@ public:
 		//smart pointers should clean up the nodes
 	}
 
-	static int getNodeSize() { return _nodeSize; }
 private:
 	struct Node
 	{
