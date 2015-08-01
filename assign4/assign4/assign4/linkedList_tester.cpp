@@ -2,6 +2,9 @@
 #include "LinkedList.h"
 #include <cstdlib>
 
+using std::cout;
+using std::endl;
+
 int main()
 {
 	LinkedList<int> l;
@@ -11,8 +14,10 @@ int main()
 	}
 	for (int j = 0;j < 5000;j++)
 	{
-		std::cout << l[j]<< std::endl;
+		cout << l[j]<< endl;
 	}
+
+	cout << "node size is: " << l._nodeSize << endl;
 	return EXIT_SUCCESS;
 }
 

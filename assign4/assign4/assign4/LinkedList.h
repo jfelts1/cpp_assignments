@@ -100,20 +100,22 @@ public:
 		//smart pointers should clean up the nodes
 	}
 
+	const int _nodeSize = NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T);
+
 private:
 	struct Node
 	{
 		std::shared_ptr<Node> _next;
 		short _usedDigits;
 		
-		T _digits[NODEDATASIZE / sizeof(T)<1 ? NODEDATASIZE / sizeof(T) : 1];
+		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
 	std::shared_ptr<Node> _head;
 	std::shared_ptr<Node> _tail;
 	long long _numNodes = 0;
 	long long _size = 0;//can't ever reach this value but int isn't big enough
 
-	const int _nodeSize = NODEDATASIZE / sizeof(T)<1 ? NODEDATASIZE / sizeof(T) : 1;
+	
 
 	std::shared_ptr<Node> makeNewNode(const T value)
 	{
