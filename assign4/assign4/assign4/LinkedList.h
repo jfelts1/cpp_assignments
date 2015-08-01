@@ -33,6 +33,7 @@ public:
 			i++;
 		}
 	}
+
 	LinkedList& operator=(LinkedList& orig)
 	{
 		if (&orig != this)
@@ -48,6 +49,7 @@ public:
 		return *this;
 	}
 
+	//adds the given value to the end of the list
 	void add(T value)
 	{
 		if (_size == 0LL)
@@ -69,6 +71,7 @@ public:
 		_size++;
 	}
 
+	//returns the value at the given index
 	T& operator[](long long index)
 	{
 		long long atNode = index / _nodeSize;
@@ -77,6 +80,7 @@ public:
 		return n->_digits[indexInNode];
 	}
 
+	//returns the value at the given index
 	const T& operator[](long long index)const
 	{
 		long long atNode = index / _nodeSize;
@@ -85,7 +89,6 @@ public:
 		return n->_digits[indexInNode];
 	}
 
-	//std::string toString()const;
 	
 	long long size()const {
 		return _size;
@@ -101,7 +104,6 @@ public:
 	}
 
 	const int _nodeSize = NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T);
-
 private:
 	struct Node
 	{
