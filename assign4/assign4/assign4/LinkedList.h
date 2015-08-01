@@ -33,7 +33,7 @@ public:
 			i++;
 		}
 	}
-
+	//creates a deep copy of the given LinkedList
 	LinkedList& operator=(LinkedList& orig)
 	{
 		if (&orig != this)
