@@ -10,7 +10,7 @@ int main()
 {
 	LinkedList<int> l;
 	LinkedList<int> l2;
-	for (int i = 0;i < 5000;i++)
+	for (int i = 0;i < 50000;i++)
 	{
 		l.add(i);
 	}
@@ -27,6 +27,7 @@ int main()
 	l2 = l;
 	l.clear();
 	cout << "l2" << l2 << endl;
+	cout << "l == l2 " << ((l == l2) ? "false": "true") << endl;
 	cout << "node size is: " << l._nodeSize << endl;
 	return EXIT_SUCCESS;
 }

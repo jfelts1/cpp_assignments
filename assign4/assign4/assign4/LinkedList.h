@@ -7,6 +7,7 @@
 #include <string>
 #include <array>
 #include <cmath>
+#include <stdexcept>
 //should make each node exactly one page in size on x64 
 #define NODEDATASIZE 4086
 
@@ -14,14 +15,15 @@ template<class T>
 class LinkedList
 {
 
-	friend std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
+	friend inline std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
 	{
 		for (int i = 0;i < linkedList.size();i++)
 		{
-			out << linkedList[i]<<"\n";
+			out << linkedList[i] << "\n";
 		}
 		return out;
 	}
+
 public:
 
 	LinkedList()
@@ -60,6 +62,25 @@ public:
 		return *this;
 	}
 
+	inline bool operator==(const LinkedList& rhs)const
+	{
+		if (size() == rhs.size())
+		{
+			for (int i = 0;i < size();i++)
+			{
+				if (this->operator[](i) != rhs[i])
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	//adds the given value to the end of the list
 	void add(T value)
 	{
@@ -83,7 +104,7 @@ public:
 	}
 
 	//returns the value at the given index
-	T& operator[](long long index)
+	T& operator[](const long long index)
 	{
 		long long atNode = index / _nodeSize;
 		long long indexInNode = index%_nodeSize;
@@ -91,14 +112,35 @@ public:
 		return n->_digits[indexInNode];
 	}
 
+	//returns the value at the given index with bounds checking
+	T& at(const long long index)
+	{
+		if (index > _size-1)
+		{
+			throw std::out_of_range("Attempted to access an element not in the list");
+		}
+		return this->operator[](index);
+	}
+
 	//returns the value at the given index
-	const T& operator[](long long index)const
+	const T& operator[](const long long index)const
 	{
 		long long atNode = index / _nodeSize;
 		long long indexInNode = index%_nodeSize;
 		std::shared_ptr<Node> n = getNode(atNode);
 		return n->_digits[indexInNode];
 	}
+
+	//returns the value at the given index with bounds checking
+	const T& at(const long long index)const
+	{
+		if (index > _size - 1)
+		{
+			throw std::out_of_range("Attempted to access an element not in the list");
+		}
+		return this->operator[](index);
+	}
+	
 	
 	long long size()const {
 		return _size;
@@ -122,7 +164,7 @@ private:
 	{
 		std::shared_ptr<Node> _next;
 		short _usedDigits;
-		
+
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
 	std::shared_ptr<Node> _head;
@@ -130,7 +172,7 @@ private:
 	long long _numNodes = 0;
 	long long _size = 0;//can't ever reach this value but int isn't big enough
 
-	std::shared_ptr<Node> makeNewNode(const T value)
+	inline std::shared_ptr<Node> makeNewNode(const T value)
 	{
 		std::shared_ptr<Node> nn = std::make_shared<Node>();
 		nn->_next = nullptr;
@@ -141,16 +183,17 @@ private:
 		return nn;
 	}
 
-	std::shared_ptr<Node> getNode(const long long index)const
+	inline std::shared_ptr<Node> getNode(const long long index)const
 	{
 		long long count = 0;
 		std::shared_ptr<Node> cur = _head;
+
 		while (count < index)
 		{
 			cur = cur->_next;
 			count++;
 		}
-
+	
 		return cur;
 	}
 };
