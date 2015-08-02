@@ -5,8 +5,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <array>
-#include <cmath>
 #include <stdexcept>
 //should make each node exactly one page in size on x64 
 #define NODEDATASIZE 4086
@@ -37,7 +35,7 @@ public:
 	}
 
 	//deep copy constructor
-	LinkedList(LinkedList& orig)
+	LinkedList(const LinkedList& orig)
 	{
 		long long i = 0;
 		while (i < orig._size)
@@ -47,7 +45,7 @@ public:
 		}
 	}
 	//assigns using deep copy
-	LinkedList& operator=(LinkedList& orig)
+	LinkedList& operator=(const LinkedList& orig)
 	{
 		if (&orig != this)
 		{
@@ -79,6 +77,22 @@ public:
 		{
 			return false;
 		}
+	}
+
+	inline bool operator!=(const LinkedList& rhs)const
+	{
+		return !(*this == rhs);
+	}
+
+	inline LinkedList operator+(const LinkedList& rhs)const
+	{
+		LinkedList<T> out(*this);
+		for (int i = 0;i < rhs.size();i++)
+		{
+			out.add(rhs[i]);
+		}
+
+		return out;
 	}
 
 	//adds the given value to the end of the list
