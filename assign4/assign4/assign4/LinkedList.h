@@ -14,16 +14,27 @@ template<class T>
 class LinkedList
 {
 
-	//friend std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList);
+	friend std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
+	{
+		for (int i = 0;i < linkedList.size();i++)
+		{
+			out << linkedList[i]<<"\n";
+		}
+		return out;
+	}
 public:
+
 	LinkedList()
 	{
 		_size = 0;
 		_numNodes = 0;
 	}
+
 	virtual ~LinkedList()
 	{
 	}
+
+	//deep copy constructor
 	LinkedList(LinkedList& orig)
 	{
 		long long i = 0;
@@ -33,7 +44,7 @@ public:
 			i++;
 		}
 	}
-	//creates a deep copy of the given LinkedList
+	//assigns using deep copy
 	LinkedList& operator=(LinkedList& orig)
 	{
 		if (&orig != this)
@@ -88,7 +99,6 @@ public:
 		std::shared_ptr<Node> n = getNode(atNode);
 		return n->_digits[indexInNode];
 	}
-
 	
 	long long size()const {
 		return _size;
@@ -104,6 +114,9 @@ public:
 	}
 
 	const int _nodeSize = NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T);
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 private:
 	struct Node
 	{
@@ -116,8 +129,6 @@ private:
 	std::shared_ptr<Node> _tail;
 	long long _numNodes = 0;
 	long long _size = 0;//can't ever reach this value but int isn't big enough
-
-	
 
 	std::shared_ptr<Node> makeNewNode(const T value)
 	{
