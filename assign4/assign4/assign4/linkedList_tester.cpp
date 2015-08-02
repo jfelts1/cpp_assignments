@@ -1,4 +1,9 @@
-
+/*
+ *James Felts
+ *
+ * Compilers Used
+ * Visual C++ 2015 X64 target 
+ */
 #include "LinkedList.h"
 #include <cstdlib>
 #include <cstdio>
@@ -16,6 +21,7 @@ int main()
 	}
 	//copy constructor test
 	LinkedList<int> l3(l);
+
 	LinkedList<int> l4;
 	int check = 0;
 	//cuts the output time by a factor of 10 or so on windows!
@@ -28,7 +34,6 @@ int main()
 	cout << l << endl;
 	//assignment test
 	l2 = l;
-	//l.clear();
 	//addition operator test
 	l4 = l + l2;
 
