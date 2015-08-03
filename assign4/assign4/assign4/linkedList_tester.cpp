@@ -8,12 +8,22 @@
 #include "LinkedList.h"
 #include <cstdlib>
 #include <cstdio>
+#include <list>
+#include <vector>
 
 using std::cout;
 using std::endl;
 
 int main()
 {
+	int check = 0;
+	//cuts the output time by a factor of 10 or so on windows!
+	check = setvbuf(stdout, NULL, _IOFBF, 10000);
+	if (check != 0)
+	{
+		std::cerr << "Unable to set buffer size" << endl;
+	}
+
 	LinkedList<int> l;
 	LinkedList<int> l2;
 	for (int i = 0;i < 50000;i++)
@@ -24,14 +34,7 @@ int main()
 	LinkedList<int> l3(l);
 
 	LinkedList<int> l4;
-	int check = 0;
-	//cuts the output time by a factor of 10 or so on windows!
-	check = setvbuf(stdout, NULL, _IOFBF,10000);
-	if (check != 0)
-	{
-		std::cerr << "Unable to set buffer size" << endl;
-	}
-
+	
 	cout << l << endl;
 	//copy assignment test
 	l2 = l;
@@ -61,6 +64,28 @@ int main()
 	cout << "l[2]: " << l[2] << endl;
 	cout << "l[3]: " << l[3] << endl;
 	cout << "l[l.size()-1]: " << l[l.size() - 1] << endl;
+
+	/*std::list<int> test;
+	for (int i = 0; i < 50000;i++)
+	{
+		test.push_back(i);
+	}
+	for (int i : test)
+	{
+		cout << i << "\n";
+	}
+	cout<<endl;*/
+
+	/*std::vector<int> test2;
+	for (int i = 0; i < 50000;i++)
+	{
+		test2.push_back(i);
+	}
+	for (int i : test2)
+	{
+		cout << i << "\n";
+	}
+	cout << endl;*/
 
 	return EXIT_SUCCESS;
 }

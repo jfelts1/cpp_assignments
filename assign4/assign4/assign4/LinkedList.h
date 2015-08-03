@@ -14,6 +14,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <utility>
+#include <iterator>
 //should make each node exactly one page in size on x64 
 #define NODEDATASIZE 4078
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
@@ -24,6 +25,10 @@ class LinkedList
 
 	friend inline std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
 	{
+		/*for (T val : linkedList)
+		{
+			out << val << "\n";
+		}*/
 		for (long long i = 0;i < linkedList.size();i++)
 		{
 			out << linkedList[i] << "\n";
@@ -280,6 +285,28 @@ private:
 		short _usedDigits;
 		long long _nodeNumber;
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
+	};
+
+	struct ListIterator : std::iterator<std::forward_iterator_tag, T>
+	{
+		ListIterator(T* val) :p(val) {}
+		ListIterator(const ListIterator& lit) : p(lit.p) {}
+		ListIterator& operator++() 
+		{ 
+			++p;
+			return *this; 
+		}
+		ListIterator operator++(int) 
+		{ 
+			ListIterator tmp(*tmp); 
+			operator++();
+			return tmp;
+		}
+		bool operator==(const ListIterator& rhs) { return p == rhs.p; }
+		bool operator!=(const ListIterator& rhs) { return p != rhs.p; }
+		T& operator*() { return *p; }
+	private:
+		T* p;
 	};
 	std::shared_ptr<Node> _head;
 	std::shared_ptr<Node> _tail;
