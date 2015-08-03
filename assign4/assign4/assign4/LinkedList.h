@@ -2,14 +2,21 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #pragma once
-//disable the spammy warnings that can't be acted on
+
+#ifdef _WIN32
+//disable the spammy warnings that can't be acted on in Visual C++
 #pragma warning(disable: 4514 4711 4710 4820)
+#endif
+
 #include <iostream>
 #include <memory>
 #include <string>
 #include <stdexcept>
+#include <algorithm>
+#include <utility>
 //should make each node exactly one page in size on x64 
 #define NODEDATASIZE 4086
+#define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
 
 template<class T>
 class LinkedList
@@ -56,6 +63,7 @@ public:
 		orig._tail = nullptr;
 	}
 
+	//copy assigment
 	LinkedList& operator=(const LinkedList& orig)
 	{
 		if (&orig != this)
@@ -67,6 +75,22 @@ public:
 				add(orig[i]);
 				i++;
 			}
+		}
+		return *this;
+	}
+
+	//move assignment
+	LinkedList& operator=(LinkedList&& orig)
+	{
+		if (&orig != this)
+		{
+			clear();
+			_head = std::move(orig._head);
+			_tail = std::move(orig._tail);
+			_numNodes = orig._numNodes;
+			orig._numNodes = -1;
+			_size = orig._size;
+			orig._size = -1;
 		}
 		return *this;
 	}
@@ -107,7 +131,7 @@ public:
 	}
 
 	//adds the given value to the end of the list
-	void add(T value)
+	void add(const T value)
 	{
 		if (_size == 0LL)
 		{
@@ -128,6 +152,22 @@ public:
 		_size++;
 	}
 
+	//add the given value at the given index
+	void add(const T value, const long long index)
+	{
+		if (index > _size - 1 || index < 0)
+		{
+			THROW_OUTOFRANGE
+		}
+		T temp = this->operator[](index);
+		this->operator[](index) = value;
+		for (long long i = index+1;i < _size;i++)
+		{
+			std::swap(this->operator[](i), temp);
+		}
+		add(temp);
+	}
+
 	//returns the value at the given index
 	T& operator[](const long long index)
 	{
@@ -140,11 +180,11 @@ public:
 	//returns the value at the given index with bounds checking
 	T& at(const long long index)
 	{
-		if (index > _size-1)
+		if (index > _size-1 || index < 0)
 		{
-			throw std::out_of_range("Attempted to access an element not in the list");
+			THROW_OUTOFRANGE
 		}
-		return this->operator[](index);
+		return this[index];
 	}
 
 	//returns the value at the given index
@@ -159,15 +199,16 @@ public:
 	//returns the value at the given index with bounds checking
 	const T& at(const long long index)const
 	{
-		if (index > _size - 1)
+		if (index > _size - 1 || index < 0)
 		{
-			throw std::out_of_range("Attempted to access an element not in the list");
+			THROW_OUTOFRANGE
 		}
 		return this->operator[](index);
 	}
 	
 	
-	long long size()const {
+	long long size()const 
+	{
 		return _size;
 	}
 

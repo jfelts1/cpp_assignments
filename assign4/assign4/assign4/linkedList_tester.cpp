@@ -1,8 +1,9 @@
 /*
- *James Felts
+ * James Felts
  *
  * Compilers Used
  * Visual C++ 2015 X64 target 
+ * g++ 5.1
  */
 #include "LinkedList.h"
 #include <cstdlib>
@@ -48,6 +49,8 @@ int main()
 	cout << "l == l3 " << ((l == l3) ? "true" : "false") << endl;
 	cout << "l != l4 " << ((l != l4) ? "true" : "false") << endl;
 	cout << "node size is: " << l._nodeSize << endl;
+	l.add(999999, 1);
+	cout << "l[1]: " << l[1] << endl;
 
 	return EXIT_SUCCESS;
 }
