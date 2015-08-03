@@ -2,6 +2,8 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #pragma once
+//disable the spammy warnings that can't be acted on
+#pragma warning(disable: 4514 4711 4710 4820)
 #include <iostream>
 #include <memory>
 #include <string>
@@ -46,7 +48,7 @@ public:
 	}
 
 	//move constructor
-	LinkedList(LinkedList&& orig)noexcept : _head(std::move(orig._head)),_tail(std::move(orig._tail)), _size(orig._size),_numNodes(orig._numNodes)
+	LinkedList(LinkedList&& orig)noexcept : _head(std::move(orig._head)),_tail(std::move(orig._tail)), _numNodes(orig._numNodes), _size(orig._size)
 	{
 		orig._size = -1;
 		orig._numNodes = -1;
