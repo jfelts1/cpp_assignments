@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <utility>
 //should make each node exactly one page in size on x64 
-#define NODEDATASIZE 4086
+#define NODEDATASIZE 4078
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
 
 template<class T>
@@ -24,7 +24,7 @@ class LinkedList
 
 	friend inline std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
 	{
-		for (int i = 0;i < linkedList.size();i++)
+		for (long long i = 0;i < linkedList.size();i++)
 		{
 			out << linkedList[i] << "\n";
 		}
@@ -55,12 +55,13 @@ public:
 	}
 
 	//move constructor
-	LinkedList(LinkedList&& orig)noexcept : _head(std::move(orig._head)),_tail(std::move(orig._tail)), _numNodes(orig._numNodes), _size(orig._size)
+	LinkedList(LinkedList&& orig)noexcept : _head(std::move(orig._head)),_tail(std::move(orig._tail)),_cur(std::move(orig._cur)), _numNodes(orig._numNodes), _size(orig._size)
 	{
 		orig._size = -1;
 		orig._numNodes = -1;
 		orig._head = nullptr;
 		orig._tail = nullptr;
+		orig._cur = nullptr;
 	}
 
 	//copy assigment
@@ -87,6 +88,7 @@ public:
 			clear();
 			_head = std::move(orig._head);
 			_tail = std::move(orig._tail);
+			_cur = std::move(orig._cur);
 			_numNodes = orig._numNodes;
 			orig._numNodes = -1;
 			_size = orig._size;
@@ -122,7 +124,7 @@ public:
 	inline LinkedList operator+(const LinkedList& rhs)const
 	{
 		LinkedList<T> out(*this);
-		for (int i = 0;i < rhs.size();i++)
+		for (long long i = 0;i < rhs.size();i++)
 		{
 			out.add(rhs[i]);
 		}
@@ -168,6 +170,53 @@ public:
 		add(temp);
 	}
 
+	//deletes the first instance found that matches the given input
+	//returns true when successfully deleted
+	//returns false otherwise
+	bool remove(const T value)
+	{
+		if (this->contains(value))
+		{
+			LinkedList temp;
+			bool del = false;
+			for (long long i = 0;i < size();i++)
+			{
+				T tmp = this->operator[](i);
+				if(tmp==value && del == false)
+				{ 
+					del = true;
+				}
+				else
+				{
+					temp.add(tmp);
+				}
+			}
+			_head = temp._head;
+			_tail = temp._tail;
+			_cur = temp._cur;
+			_size = temp._size;
+			_numNodes = temp._numNodes;
+
+			return del;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	bool contains(const T value)
+	{
+		for (long long i = 0;i < _size;i++)
+		{
+			if (this->operator[](i) == value)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	//returns the value at the given index
 	T& operator[](const long long index)
 	{
@@ -206,7 +255,6 @@ public:
 		return this->operator[](index);
 	}
 	
-	
 	long long size()const 
 	{
 		return _size;
@@ -230,13 +278,14 @@ private:
 	{
 		std::shared_ptr<Node> _next;
 		short _usedDigits;
-
+		long long _nodeNumber;
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
 	std::shared_ptr<Node> _head;
 	std::shared_ptr<Node> _tail;
+	std::shared_ptr<Node> _cur = nullptr;
 	long long _numNodes = 0;
-	long long _size = 0;//can't ever reach this value but int isn't big enough
+	long long _size = 0;
 
 	inline std::shared_ptr<Node> makeNewNode(const T value)
 	{
@@ -245,6 +294,7 @@ private:
 		nn->_digits[0] = value;
 		nn->_usedDigits = 0;
 		nn->_usedDigits++;
+		nn->_nodeNumber = _numNodes;
 		_numNodes++;
 		return nn;
 	}
@@ -261,6 +311,30 @@ private:
 		}
 	
 		return cur;
+	}
+
+	inline std::shared_ptr<Node> getNode(const long long index)
+	{
+		long long count = 0;
+
+		if (_cur == nullptr)
+		{
+			_cur = _head;
+		}
+		if (_cur->_nodeNumber == index)
+		{
+			return _cur;
+		}
+		else
+		{
+			_cur = _head;
+			while (count < index)
+			{
+				_cur = _cur->_next;
+				count++;
+			}
+			return _cur;
+		}
 	}
 };
 #endif

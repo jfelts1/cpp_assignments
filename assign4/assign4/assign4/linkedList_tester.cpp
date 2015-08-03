@@ -33,14 +33,13 @@ int main()
 	}
 
 	cout << l << endl;
-	//assignment test
+	//copy assignment test
 	l2 = l;
-	//addition operator test
+	//addition operator test and move assignment test
 	l4 = l + l2;
 
 	LinkedList<int> l5 = std::move(l2);
 
-	//cout << "l2" << l2 << endl;
 	cout << l3 << endl;
 	cout << l4 << endl;
 	cout << "l == l2 " << ((l == l2) ? "true" : "false") << endl;
@@ -50,7 +49,18 @@ int main()
 	cout << "l != l4 " << ((l != l4) ? "true" : "false") << endl;
 	cout << "node size is: " << l._nodeSize << endl;
 	l.add(999999, 1);
+	cout << "l[0]: " << l[0] << endl;
 	cout << "l[1]: " << l[1] << endl;
+	cout << "l[2]: " << l[2] << endl;
+	cout << "l[3]: " << l[3] << endl;
+	cout << "l[l.size()-1]: " << l[l.size()-1] << endl;
+	l.remove(999999);
+	cout << "l.remove(999999)" << endl;
+	cout << "l[0]: " << l[0] << endl;
+	cout << "l[1]: " << l[1] << endl;
+	cout << "l[2]: " << l[2] << endl;
+	cout << "l[3]: " << l[3] << endl;
+	cout << "l[l.size()-1]: " << l[l.size() - 1] << endl;
 
 	return EXIT_SUCCESS;
 }
