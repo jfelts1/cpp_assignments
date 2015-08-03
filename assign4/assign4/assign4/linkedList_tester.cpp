@@ -37,11 +37,14 @@ int main()
 	//addition operator test
 	l4 = l + l2;
 
+	LinkedList<int> l5 = std::move(l2);
+
 	//cout << "l2" << l2 << endl;
 	cout << l3 << endl;
 	cout << l4 << endl;
 	cout << "l == l2 " << ((l == l2) ? "true" : "false") << endl;
 	cout << "l != l2 " << ((l != l2) ? "true" : "false") << endl;
+	cout << "l == l5 " << ((l == l5) ? "true" : "false") << endl;
 	cout << "l == l3 " << ((l == l3) ? "true" : "false") << endl;
 	cout << "l != l4 " << ((l != l4) ? "true" : "false") << endl;
 	cout << "node size is: " << l._nodeSize << endl;

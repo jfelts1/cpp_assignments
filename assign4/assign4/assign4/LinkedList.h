@@ -34,7 +34,7 @@ public:
 	{
 	}
 
-	//deep copy constructor
+	//copy constructor
 	LinkedList(const LinkedList& orig)
 	{
 		long long i = 0;
@@ -44,7 +44,16 @@ public:
 			i++;
 		}
 	}
-	//assigns using deep copy
+
+	//move constructor
+	LinkedList(LinkedList&& orig)noexcept : _head(std::move(orig._head)),_tail(std::move(orig._tail)), _size(orig._size),_numNodes(orig._numNodes)
+	{
+		orig._size = -1;
+		orig._numNodes = -1;
+		orig._head = nullptr;
+		orig._tail = nullptr;
+	}
+
 	LinkedList& operator=(const LinkedList& orig)
 	{
 		if (&orig != this)
