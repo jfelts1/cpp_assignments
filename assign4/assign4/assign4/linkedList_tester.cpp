@@ -64,6 +64,10 @@ int main()
 	cout << "l[2]: " << l[2] << endl;
 	cout << "l[3]: " << l[3] << endl;
 	cout << "l[l.size()-1]: " << l[l.size() - 1] << endl;
+	/*cout << "sizeof(long long): " << sizeof(long long) << endl;
+	cout << "sizeof(short): " << sizeof(short) << endl;
+	cout << "sizeof(int): " << sizeof(int) << endl;
+	cout << "sizeof(std::shared_ptr<Node>: " << sizeof(std::shared_ptr<int>) << endl;*/
 
 	/*std::list<int> test;
 	for (int i = 0; i < 50000;i++)

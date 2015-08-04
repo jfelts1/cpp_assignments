@@ -15,8 +15,8 @@
 #include <algorithm>
 #include <utility>
 #include <iterator>
-//should make each node exactly one page in size on x64 
-#define NODEDATASIZE 4078
+//should make each node exactly one page in size
+#define NODEDATASIZE (4096 - sizeof(short)-sizeof(long long)-sizeof(std::shared_ptr<int>))
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
 
 template<class T>
@@ -318,6 +318,10 @@ public:
 	private:
 		T* p;
 	};
+	unsigned long long getSizeOfNodePtr()
+	{
+		return sizeof(std::shared_ptr<Node>);
+	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
