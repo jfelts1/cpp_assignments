@@ -10,6 +10,7 @@
 #include <cstdio>
 #include <list>
 #include <vector>
+#include <chrono>
 
 using std::cout;
 using std::endl;
@@ -57,7 +58,7 @@ int main()
 	cout << "l[2]: " << l[2] << endl;
 	cout << "l[3]: " << l[3] << endl;
 	cout << "l[l.size()-1]: " << l[l.size()-1] << endl;
-	l.remove(999999);
+	l.removeByValue(999999);
 	cout << "l.remove(999999)" << endl;
 	cout << "l[0]: " << l[0] << endl;
 	cout << "l[1]: " << l[1] << endl;
@@ -65,7 +66,35 @@ int main()
 	cout << "l[3]: " << l[3] << endl;
 	cout << "l[l.size()-1]: " << l[l.size() - 1] << endl;
 	cout << "sizeof(Node): " << l.getSizeOfNode() << endl;
-
+	LinkedList<long long> lltest;
+	
+	for (int i = 0;i < 50000;i++)
+	{
+		lltest.add(i);
+	}
+	cout << lltest << endl;
+	cout << "node size is: " << lltest.m_nodeSize << endl;
+	cout << "sizeof(Node): " << lltest.getSizeOfNode() << endl;
+	cout << "lltest[0]: " << lltest[0] << endl;
+	cout << "lltest[1]: " << lltest[1] << endl;
+	lltest.removeByIndex(0);
+	cout << "lltest[0]: " << lltest[0] << endl;
+	cout << "lltest[1]: " << lltest[1] << endl;
+	cout << "adding 50000 new elements to lltest" << endl;
+	for (int i = 0;i < 50000;i++)
+	{
+		lltest.add(i);
+	}
+	for (int i = 0;i < 6;i++)
+	{
+		cout << "lltest[" << i << "]: " << lltest[i] << endl;
+	}
+	lltest.removeAllByValue(1);
+	cout << "Removing 1 from lltest" << endl;
+	for (int i = 0;i < 6;i++)
+	{
+		cout << "lltest[" << i << "]: " << lltest[i] << endl;
+	}
 	/*std::list<int> test;
 	for (int i = 0; i < 50000;i++)
 	{

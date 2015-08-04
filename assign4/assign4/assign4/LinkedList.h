@@ -122,7 +122,7 @@ public:
 		}
 	}
 
-	T* begin()
+	/*T* begin()
 	{
 		return &this->operator[](0);
 	}
@@ -140,7 +140,7 @@ public:
 	const T* end()const
 	{
 		return &this->operator[](m_size-1);
-	}
+	}*/
 
 	inline bool operator!=(const LinkedList& rhs)const
 	{
@@ -157,8 +157,6 @@ public:
 
 		return out;
 	}
-
-
 
 	//adds the given value to the end of the list
 	void add(const T value)
@@ -201,7 +199,7 @@ public:
 	//deletes the first instance found that matches the given input
 	//returns true when successfully deleted
 	//returns false otherwise
-	bool remove(const T value)
+	bool removeByValue(const T value)
 	{
 		if (this->contains(value))
 		{
@@ -212,6 +210,66 @@ public:
 				T tmp = this->operator[](i);
 				if(tmp==value && del == false)
 				{ 
+					del = true;
+				}
+				else
+				{
+					temp.add(tmp);
+				}
+			}
+			m_head = temp.m_head;
+			m_tail = temp.m_tail;
+			m_cur = temp.m_cur;
+			m_size = temp.m_size;
+			m_numNodes = temp.m_numNodes;
+
+			return del;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	//deletes the element at the given index
+	T removeByIndex(const long long index)
+	{
+		if (index > m_size - 1 || index < 0)
+		{
+			THROW_OUTOFRANGE
+		}
+		T ret = this->operator[](index);
+		LinkedList temp;
+		for (long long i = 0;i < m_size;i++)
+		{
+			if (index != i)
+			{
+				temp.add(this->operator[](i));
+			}
+		}
+
+		m_head = temp.m_head;
+		m_tail = temp.m_tail;
+		m_cur = temp.m_cur;
+		m_size = temp.m_size;
+		m_numNodes = temp.m_numNodes;
+
+		return ret;
+	}
+
+	//returns true when successfully deleted
+	//returns false otherwise
+	bool removeAllByValue(const T value)
+	{
+		if (this->contains(value))
+		{
+			LinkedList temp;
+			bool del = false;
+			for (long long i = 0;i < size();i++)
+			{
+				T tmp = this->operator[](i);
+				if (tmp == value)
+				{
 					del = true;
 				}
 				else
@@ -302,7 +360,8 @@ public:
 	struct ForwardListIterator : std::iterator<std::forward_iterator_tag, LinkedList<T>>
 	{
 		ForwardListIterator(LinkedList<T> val) :m_list(val) {}
-		ForwardListIterator(const ForwardListIterator& lit) : m_list(lit.m_list) {}
+		ForwardListIterator(LinkedList<T> val, long long index) :m_list(val), m_curIndex(index) {}
+		ForwardListIterator(const ForwardListIterator& lit) : m_list(lit.m_list),m_curIndex(lit.m_curIndex) {}
 		ForwardListIterator& operator++()
 		{
 			++m_curIndex;
@@ -314,15 +373,41 @@ public:
 			operator++();
 			return tmp;
 		}
-		bool operator==(const ForwardListIterator& rhs) { return m_list == rhs.m_list; }
-		bool operator!=(const ForwardListIterator& rhs) { return m_list != rhs.m_list; }
-		T& operator*()const { return m_list[m_curIndex]; }
-		T& operator->()const { return m_list[m_curIndex]; }
+		bool operator==(const ForwardListIterator& rhs)const { return m_list == rhs.m_list; }
+		bool operator!=(const ForwardListIterator& rhs)const { return m_list != rhs.m_list; }
+		T operator*()const { return m_list[m_curIndex]; }
+		T operator->()const { return m_list[m_curIndex]; }
+
+		operator ForwardListIterator()const
+		{
+			return ForwardListIterator(m_list, m_curIndex);
+		}
 
 	private:
 		LinkedList<T> m_list;
-		int m_curIndex = 0;
+		long long m_curIndex = 0;
 	};
+
+	ForwardListIterator begin()
+	{
+		return ForwardListIterator(this);
+	}
+
+	const ForwardListIterator begin()const
+	{
+		return ForwardListIterator(*this);
+	}
+
+	ForwardListIterator end()
+	{
+		return ForwardListIterator(this, this->size());
+	}
+
+	const ForwardListIterator end()const
+	{
+		return ForwardListIterator(*this, this->size());
+	}
+	
 
 	unsigned long long getSizeOfNode()
 	{
