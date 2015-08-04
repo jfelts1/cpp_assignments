@@ -27,7 +27,7 @@ class LinkedList
 	{
 		for (auto val : linkedList)
 		{
-			out << val << std::endl;
+			out << val << "\n";
 		}
 		/*for (long long i = 0;i < linkedList.size();i++)
 		{
@@ -359,12 +359,16 @@ public:
 
 	struct ForwardListIterator : std::iterator<std::forward_iterator_tag, LinkedList<T>>
 	{
+		ForwardListIterator() {}
 		ForwardListIterator(LinkedList<T> val) :m_list(val) {}
 		ForwardListIterator(LinkedList<T> val, long long index) :m_list(val), m_curIndex(index) {}
 		ForwardListIterator(const ForwardListIterator& lit) : m_list(lit.m_list),m_curIndex(lit.m_curIndex) {}
 		ForwardListIterator& operator++()
 		{
-			++m_curIndex;
+			if (m_curIndex < m_list.m_size)
+			{
+				++m_curIndex;
+			}
 			return *this;
 		}
 		ForwardListIterator operator++(int)
@@ -400,12 +404,12 @@ public:
 
 	ForwardListIterator end()
 	{
-		return ForwardListIterator(this, this->size());
+		return ForwardListIterator();
 	}
 
 	const ForwardListIterator end()const
 	{
-		return ForwardListIterator(*this, this->size());
+		return ForwardListIterator();
 	}
 	
 
