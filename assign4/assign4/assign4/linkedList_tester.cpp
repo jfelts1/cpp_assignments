@@ -50,7 +50,7 @@ int main()
 	cout << "l == l5 " << ((l == l5) ? "true" : "false") << endl;
 	cout << "l == l3 " << ((l == l3) ? "true" : "false") << endl;
 	cout << "l != l4 " << ((l != l4) ? "true" : "false") << endl;
-	cout << "node size is: " << l._nodeSize << endl;
+	cout << "node size is: " << l.m_nodeSize << endl;
 	l.add(999999, 1);
 	cout << "l[0]: " << l[0] << endl;
 	cout << "l[1]: " << l[1] << endl;
@@ -64,10 +64,7 @@ int main()
 	cout << "l[2]: " << l[2] << endl;
 	cout << "l[3]: " << l[3] << endl;
 	cout << "l[l.size()-1]: " << l[l.size() - 1] << endl;
-	/*cout << "sizeof(long long): " << sizeof(long long) << endl;
-	cout << "sizeof(short): " << sizeof(short) << endl;
-	cout << "sizeof(int): " << sizeof(int) << endl;
-	cout << "sizeof(std::shared_ptr<Node>: " << sizeof(std::shared_ptr<int>) << endl;*/
+	cout << "sizeof(Node): " << l.getSizeOfNode() << endl;
 
 	/*std::list<int> test;
 	for (int i = 0; i < 50000;i++)

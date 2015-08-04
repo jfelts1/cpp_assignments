@@ -16,7 +16,7 @@
 #include <utility>
 #include <iterator>
 //should make each node exactly one page in size
-#define NODEDATASIZE (4096 - sizeof(short)-sizeof(long long)-sizeof(std::shared_ptr<int>))
+#define NODEDATASIZE (4096 - sizeof(int)-sizeof(long long)-sizeof(std::shared_ptr<int>))
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
 
 template<class T>
@@ -27,7 +27,7 @@ class LinkedList
 	{
 		for (auto val : linkedList)
 		{
-			out << val << "\n";
+			out << val << std::endl;
 		}
 		/*for (long long i = 0;i < linkedList.size();i++)
 		{
@@ -41,8 +41,8 @@ public:
 
 	LinkedList()
 	{
-		_size = 0;
-		_numNodes = 0;
+		m_size = 0;
+		m_numNodes = 0;
 	}
 
 	virtual ~LinkedList()
@@ -53,7 +53,7 @@ public:
 	LinkedList(const LinkedList& orig)
 	{
 		long long i = 0;
-		while (i < orig._size)
+		while (i < orig.m_size)
 		{
 			add(orig[i]);
 			i++;
@@ -61,13 +61,13 @@ public:
 	}
 
 	//move constructor
-	LinkedList(LinkedList&& orig)noexcept : _head(std::move(orig._head)),_tail(std::move(orig._tail)),_cur(std::move(orig._cur)), _numNodes(orig._numNodes), _size(orig._size)
+	LinkedList(LinkedList&& orig)noexcept : m_head(std::move(orig.m_head)),m_tail(std::move(orig.m_tail)),m_cur(std::move(orig.m_cur)), m_numNodes(orig.m_numNodes), m_size(orig.m_size)
 	{
-		orig._size = -1;
-		orig._numNodes = -1;
-		orig._head = nullptr;
-		orig._tail = nullptr;
-		orig._cur = nullptr;
+		orig.m_size = -1;
+		orig.m_numNodes = -1;
+		orig.m_head = nullptr;
+		orig.m_tail = nullptr;
+		orig.m_cur = nullptr;
 	}
 
 	//copy assigment
@@ -77,7 +77,7 @@ public:
 		{
 			clear();
 			long long i = 0;
-			while (i < orig._size)
+			while (i < orig.m_size)
 			{
 				add(orig[i]);
 				i++;
@@ -92,13 +92,13 @@ public:
 		if (&orig != this)
 		{
 			clear();
-			_head = std::move(orig._head);
-			_tail = std::move(orig._tail);
-			_cur = std::move(orig._cur);
-			_numNodes = orig._numNodes;
-			orig._numNodes = -1;
-			_size = orig._size;
-			orig._size = -1;
+			m_head = std::move(orig.m_head);
+			m_tail = std::move(orig.m_tail);
+			m_cur = std::move(orig.m_cur);
+			m_numNodes = orig.m_numNodes;
+			orig.m_numNodes = -1;
+			m_size = orig.m_size;
+			orig.m_size = -1;
 		}
 		return *this;
 	}
@@ -134,12 +134,12 @@ public:
 
 	T* end()
 	{
-		return &this->operator[](_size);
+		return &this->operator[](m_size-1);
 	}
 	
 	const T* end()const
 	{
-		return &this->operator[](_size);
+		return &this->operator[](m_size-1);
 	}
 
 	inline bool operator!=(const LinkedList& rhs)const
@@ -158,38 +158,40 @@ public:
 		return out;
 	}
 
+
+
 	//adds the given value to the end of the list
 	void add(const T value)
 	{
-		if (_size == 0LL)
+		if (m_size == 0LL)
 		{
 			std::shared_ptr<Node> nn = makeNewNode(value);
-			_head = _tail = nn;
+			m_head = m_tail = nn;
 		}
-		else if (_size%_nodeSize == 0LL)
+		else if (m_size%m_nodeSize == 0LL)
 		{
 			std::shared_ptr<Node> nn = makeNewNode(value);
-			_tail->_next = nn;
-			_tail = nn;
+			m_tail->_next = nn;
+			m_tail = nn;
 		}
 		else
 		{
-			_tail->_digits[_tail->_usedDigits] = value;
-			_tail->_usedDigits++;
+			m_tail->_digits[m_tail->_usedDigits] = value;
+			m_tail->_usedDigits++;
 		}
-		_size++;
+		m_size++;
 	}
 
 	//add the given value at the given index
 	void add(const T value, const long long index)
 	{
-		if (index > _size - 1 || index < 0)
+		if (index > m_size - 1 || index < 0)
 		{
 			THROW_OUTOFRANGE
 		}
 		T temp = this->operator[](index);
 		this->operator[](index) = value;
-		for (long long i = index+1;i < _size;i++)
+		for (long long i = index+1;i < m_size;i++)
 		{
 			std::swap(this->operator[](i), temp);
 		}
@@ -217,11 +219,11 @@ public:
 					temp.add(tmp);
 				}
 			}
-			_head = temp._head;
-			_tail = temp._tail;
-			_cur = temp._cur;
-			_size = temp._size;
-			_numNodes = temp._numNodes;
+			m_head = temp.m_head;
+			m_tail = temp.m_tail;
+			m_cur = temp.m_cur;
+			m_size = temp.m_size;
+			m_numNodes = temp.m_numNodes;
 
 			return del;
 		}
@@ -233,7 +235,7 @@ public:
 
 	bool contains(const T value)
 	{
-		for (long long i = 0;i < _size;i++)
+		for (long long i = 0;i < m_size;i++)
 		{
 			if (this->operator[](i) == value)
 			{
@@ -246,8 +248,8 @@ public:
 	//returns the value at the given index
 	T& operator[](const long long index)
 	{
-		long long atNode = index / _nodeSize;
-		long long indexInNode = index%_nodeSize;
+		long long atNode = index / m_nodeSize;
+		long long indexInNode = index%m_nodeSize;
 		std::shared_ptr<Node> n = getNode(atNode);
 		return n->_digits[indexInNode];
 	}
@@ -255,7 +257,7 @@ public:
 	//returns the value at the given index with bounds checking
 	T& at(const long long index)
 	{
-		if (index > _size-1 || index < 0)
+		if (index > m_size-1 || index < 0)
 		{
 			THROW_OUTOFRANGE
 		}
@@ -265,8 +267,8 @@ public:
 	//returns the value at the given index
 	const T& operator[](const long long index)const
 	{
-		long long atNode = index / _nodeSize;
-		long long indexInNode = index%_nodeSize;
+		long long atNode = index / m_nodeSize;
+		long long indexInNode = index%m_nodeSize;
 		std::shared_ptr<Node> n = getNode(atNode);
 		return n->_digits[indexInNode];
 	}
@@ -274,7 +276,7 @@ public:
 	//returns the value at the given index with bounds checking
 	const T& at(const long long index)const
 	{
-		if (index > _size - 1 || index < 0)
+		if (index > m_size - 1 || index < 0)
 		{
 			THROW_OUTOFRANGE
 		}
@@ -283,44 +285,48 @@ public:
 	
 	long long size()const 
 	{
-		return _size;
+		return m_size;
 	}
 
 	void clear()
 	{
-		_head = nullptr;
-		_tail = nullptr;
-		_size = 0;
-		_numNodes = 0;
+		m_head = nullptr;
+		m_tail = nullptr;
+		m_size = 0;
+		m_numNodes = 0;
 		//smart pointers should clean up the nodes
 	}
 
-	const int _nodeSize = NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T);
+	const int m_nodeSize = NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T);
 
-	struct ListIterator : std::iterator<std::forward_iterator_tag, T>
+	struct ForwardListIterator : std::iterator<std::forward_iterator_tag, LinkedList<T>>
 	{
-		ListIterator(T* val) :p(val) {}
-		ListIterator(const ListIterator& lit) : p(lit.p) {}
-		ListIterator& operator++()
+		ForwardListIterator(LinkedList<T> val) :m_list(val) {}
+		ForwardListIterator(const ForwardListIterator& lit) : m_list(lit.m_list) {}
+		ForwardListIterator& operator++()
 		{
-			++p;
+			++m_curIndex;
 			return *this;
 		}
-		ListIterator operator++(int)
+		ForwardListIterator operator++(int)
 		{
-			ListIterator tmp(*tmp);
+			ForwardListIterator tmp(*this);
 			operator++();
 			return tmp;
 		}
-		bool operator==(const ListIterator& rhs) { return p == rhs.p; }
-		bool operator!=(const ListIterator& rhs) { return p != rhs.p; }
-		T& operator*() { return *p; }
+		bool operator==(const ForwardListIterator& rhs) { return m_list == rhs.m_list; }
+		bool operator!=(const ForwardListIterator& rhs) { return m_list != rhs.m_list; }
+		T& operator*()const { return m_list[m_curIndex]; }
+		T& operator->()const { return m_list[m_curIndex]; }
+
 	private:
-		T* p;
+		LinkedList<T> m_list;
+		int m_curIndex = 0;
 	};
-	unsigned long long getSizeOfNodePtr()
+
+	unsigned long long getSizeOfNode()
 	{
-		return sizeof(std::shared_ptr<Node>);
+		return sizeof(Node);
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -329,17 +335,17 @@ private:
 	struct Node
 	{
 		std::shared_ptr<Node> _next;
-		short _usedDigits;
+		int _usedDigits;
 		long long _nodeNumber;
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
 
 	
-	std::shared_ptr<Node> _head;
-	std::shared_ptr<Node> _tail;
-	std::shared_ptr<Node> _cur = nullptr;
-	long long _numNodes = 0;
-	long long _size = 0;
+	std::shared_ptr<Node> m_head;
+	std::shared_ptr<Node> m_tail;
+	std::shared_ptr<Node> m_cur = nullptr;
+	long long m_numNodes = 0;
+	long long m_size = 0;
 
 	inline std::shared_ptr<Node> makeNewNode(const T value)
 	{
@@ -348,15 +354,15 @@ private:
 		nn->_digits[0] = value;
 		nn->_usedDigits = 0;
 		nn->_usedDigits++;
-		nn->_nodeNumber = _numNodes;
-		_numNodes++;
+		nn->_nodeNumber = m_numNodes;
+		m_numNodes++;
 		return nn;
 	}
 
 	inline std::shared_ptr<Node> getNode(const long long index)const
 	{
 		long long count = 0;
-		std::shared_ptr<Node> cur = _head;
+		std::shared_ptr<Node> cur = m_head;
 
 		while (count < index)
 		{
@@ -371,23 +377,23 @@ private:
 	{
 		long long count = 0;
 
-		if (_cur == nullptr)
+		if (m_cur == nullptr)
 		{
-			_cur = _head;
+			m_cur = m_head;
 		}
-		if (_cur->_nodeNumber == index)
+		if (m_cur->_nodeNumber == index)
 		{
-			return _cur;
+			return m_cur;
 		}
 		else
 		{
-			_cur = _head;
+			m_cur = m_head;
 			while (count < index)
 			{
-				_cur = _cur->_next;
+				m_cur = m_cur->_next;
 				count++;
 			}
-			return _cur;
+			return m_cur;
 		}
 	}
 };
