@@ -25,15 +25,16 @@ class LinkedList
 
 	friend inline std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
 	{
-		/*for (T val : linkedList)
+		for (auto val : linkedList)
 		{
 			out << val << "\n";
-		}*/
-		for (long long i = 0;i < linkedList.size();i++)
+		}
+		/*for (long long i = 0;i < linkedList.size();i++)
 		{
 			out << linkedList[i] << "\n";
-		}
+		}*/
 		return out;
+
 	}
 
 public:
@@ -119,6 +120,26 @@ public:
 		{
 			return false;
 		}
+	}
+
+	T* begin()
+	{
+		return &this->operator[](0);
+	}
+
+	const T* begin()const
+	{
+		return &this->operator[](0);
+	}
+
+	T* end()
+	{
+		return &this->operator[](_size);
+	}
+	
+	const T* end()const
+	{
+		return &this->operator[](_size);
 	}
 
 	inline bool operator!=(const LinkedList& rhs)const
@@ -276,6 +297,28 @@ public:
 
 	const int _nodeSize = NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T);
 
+	struct ListIterator : std::iterator<std::forward_iterator_tag, T>
+	{
+		ListIterator(T* val) :p(val) {}
+		ListIterator(const ListIterator& lit) : p(lit.p) {}
+		ListIterator& operator++()
+		{
+			++p;
+			return *this;
+		}
+		ListIterator operator++(int)
+		{
+			ListIterator tmp(*tmp);
+			operator++();
+			return tmp;
+		}
+		bool operator==(const ListIterator& rhs) { return p == rhs.p; }
+		bool operator!=(const ListIterator& rhs) { return p != rhs.p; }
+		T& operator*() { return *p; }
+	private:
+		T* p;
+	};
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private:
@@ -287,27 +330,7 @@ private:
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
 
-	struct ListIterator : std::iterator<std::forward_iterator_tag, T>
-	{
-		ListIterator(T* val) :p(val) {}
-		ListIterator(const ListIterator& lit) : p(lit.p) {}
-		ListIterator& operator++() 
-		{ 
-			++p;
-			return *this; 
-		}
-		ListIterator operator++(int) 
-		{ 
-			ListIterator tmp(*tmp); 
-			operator++();
-			return tmp;
-		}
-		bool operator==(const ListIterator& rhs) { return p == rhs.p; }
-		bool operator!=(const ListIterator& rhs) { return p != rhs.p; }
-		T& operator*() { return *p; }
-	private:
-		T* p;
-	};
+	
 	std::shared_ptr<Node> _head;
 	std::shared_ptr<Node> _tail;
 	std::shared_ptr<Node> _cur = nullptr;
