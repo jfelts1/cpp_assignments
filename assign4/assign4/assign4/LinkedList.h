@@ -29,7 +29,7 @@ class LinkedList
 		{
 			out << val << "\n";
 		}*/
-		for(auto beg = linkedList.begin(),en = linkedList.end();beg!=en;++beg)
+		for(auto beg = linkedList.begin(),en = linkedList.end(); beg != en;++beg)
 		{
 			out<< *beg<<"\n";
 		}
@@ -344,13 +344,12 @@ public:
 	struct ForwardListIterator : std::iterator<std::forward_iterator_tag, LinkedList<T>>
 	{
 		
-		ForwardListIterator() {std::cout<<"ForwardListIterator()"<<m_curIndex<<std::endl;}
-		ForwardListIterator(LinkedList<T> val) :m_list(val) {std::cout<<"ForwardListIterator(LinkedList<T> val)"<<m_curIndex<<std::endl;}
-		ForwardListIterator(LinkedList<T> val, long long index) :m_list(val), m_curIndex(index) {std::cout<<"ForwardListIterator(LinkedList<T> val, long long index)"<<m_curIndex<<std::endl;}
-		ForwardListIterator(const ForwardListIterator& lit) : m_list(lit.m_list),m_curIndex(lit.m_curIndex) {std::cout<<"ForwardListIterator(const ForwardListIterator& lit)"<<m_curIndex<<std::endl;}
+		ForwardListIterator() {}
+		ForwardListIterator(LinkedList<T> val) :m_list(val) {}
+		ForwardListIterator(LinkedList<T> val, long long index) :m_list(val), m_curIndex(index) {}
+		ForwardListIterator(const ForwardListIterator& lit) : m_list(lit.m_list),m_curIndex(lit.m_curIndex) {}
 		ForwardListIterator& operator++()//prefix
 		{
-			std::cout<<"ForwardListIterator& operator++()//prefix"<<m_curIndex<<std::endl;
 			if (m_curIndex < m_list.m_size)
 			{
 				++m_curIndex;
@@ -359,35 +358,29 @@ public:
 		}
 		ForwardListIterator operator++(int)//postfix
 		{
-			std::cout<<"ForwardListIterator operator++(int)//postfix"<<m_curIndex<<std::endl;
 			ForwardListIterator tmp(*this);
 			operator++();
 			return tmp;
 		}
 		bool operator==(const ForwardListIterator& rhs)const 
 		{ 
-			std::cout<<"bool operator==(const ForwardListIterator& rhs)const"<<std::endl;
-			return m_list == rhs.m_list; 
+			return m_curIndex == rhs.m_curIndex;
 		}
 		bool operator!=(const ForwardListIterator& rhs)const 
 		{
-			std::cout<<"bool operator!=(const ForwardListIterator& rhs)const"<<std::endl;
-			return m_list != rhs.m_list; 
+			return m_curIndex != rhs.m_curIndex; 
 		}
 		T operator*()const 
 		{ 
-			std::cout<<"T operator*()const "<<m_list[m_curIndex]<<std::endl;
 			return m_list[m_curIndex]; 
 		}
 		T operator->()const 
 		{ 
-			std::cout<<"T operator->()const"<<m_list[m_curIndex]<<std::endl;
 			return m_list[m_curIndex]; 
 		}
 
 		operator ForwardListIterator()const
 		{
-			std::cout<<"operator ForwardListIterator()const"<<std::endl;
 			return ForwardListIterator(m_list, m_curIndex);
 		}
 
