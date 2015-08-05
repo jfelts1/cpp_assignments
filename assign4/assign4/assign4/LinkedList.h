@@ -16,7 +16,8 @@
 #include <utility>
 #include <iterator>
 //should make each node exactly one page in size
-#define NODEDATASIZE (4096 - sizeof(int)-sizeof(long long)-sizeof(std::shared_ptr<int>))
+#define PAGESIZE 4096
+#define NODEDATASIZE (PAGESIZE - sizeof(int)-sizeof(long long)-sizeof(std::shared_ptr<int>))
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
 
 template<class T>
@@ -25,18 +26,11 @@ class LinkedList
 
 	friend inline std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
 	{
-		/*for (auto val : linkedList)
-		{
-			out << val << "\n";
-		}*/
-		for(auto beg = linkedList.begin(),en = linkedList.end(); beg != en;++beg)
-		{
-			out<< *beg<<"\n";
-		}
-		/*for (long long i = 0;i < linkedList.size();i++)
+		//faster than iterators
+		for (long long i = 0;i < linkedList.size();i++)
 		{
 			out << linkedList[i] << "\n";
-		}*/
+		}
 		return out;
 
 	}
@@ -49,9 +43,7 @@ public:
 		m_numNodes = 0;
 	}
 
-	virtual ~LinkedList()
-	{
-	}
+	virtual ~LinkedList(){}
 
 	//copy constructor
 	LinkedList(const LinkedList& orig)
@@ -343,11 +335,11 @@ public:
 
 	struct ForwardListIterator : std::iterator<std::forward_iterator_tag, LinkedList<T>>
 	{
-		
 		ForwardListIterator() {}
 		ForwardListIterator(LinkedList<T> val) :m_list(val) {}
 		ForwardListIterator(LinkedList<T> val, long long index) :m_list(val), m_curIndex(index) {}
 		ForwardListIterator(const ForwardListIterator& lit) : m_list(lit.m_list),m_curIndex(lit.m_curIndex) {}
+
 		ForwardListIterator& operator++()//prefix
 		{
 			if (m_curIndex < m_list.m_size)
@@ -356,24 +348,29 @@ public:
 			}
 			return *this;
 		}
+
 		ForwardListIterator operator++(int)//postfix
 		{
 			ForwardListIterator tmp(*this);
 			operator++();
 			return tmp;
 		}
+
 		bool operator==(const ForwardListIterator& rhs)const 
 		{ 
 			return m_curIndex == rhs.m_curIndex;
 		}
+
 		bool operator!=(const ForwardListIterator& rhs)const 
 		{
 			return m_curIndex != rhs.m_curIndex; 
 		}
+
 		T operator*()const 
 		{ 
 			return m_list[m_curIndex]; 
 		}
+
 		T operator->()const 
 		{ 
 			return m_list[m_curIndex]; 
