@@ -11,6 +11,7 @@
 #include <list>
 #include <vector>
 #include <chrono>
+#include <random>
 
 using std::cout;
 using std::endl;
@@ -102,12 +103,25 @@ int main()
 		cout << "lltest[" << i << "]: " << lltest[i] << endl;
 	}
 	lltest.removeAllByValue(1);
-	cout << "Removing 1 from lltest" << endl;
+	cout << "Removing all 1 from lltest" << endl;
 
 	for (int i = 0;i < 6;i++)
 	{
 		cout << "lltest[" << i << "]: " << lltest[i] << endl;
 	}
+
+	LinkedList<long long> test;
+	for (int i = 0;i < 10;i++)
+	{
+		test.add(rand());
+	}
+
+	cout << test << endl;
+
+	test.sort();
+
+	cout << "after sorting" << endl;
+	cout << test << endl;
 
 	/*std::list<int> test;
 	for (int i = 0; i < 50000;i++)

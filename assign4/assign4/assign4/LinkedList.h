@@ -15,9 +15,10 @@
 #include <algorithm>
 #include <utility>
 #include <iterator>
-//should make each node exactly one page in size
+
 #define PAGESIZE 4096
-#define NODEDATASIZE (PAGESIZE - sizeof(int)-sizeof(long long)-sizeof(std::shared_ptr<int>))
+//should make each node exactly one page in size
+#define NODEDATASIZE (PAGESIZE - sizeof(short)-sizeof(long long)-sizeof(std::shared_ptr<int>))
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
 
 template<class T>
@@ -333,14 +334,14 @@ public:
 
 	const int m_nodeSize = NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T);
 
-	struct ForwardListIterator : std::iterator<std::forward_iterator_tag, LinkedList<T>>
+	struct ListIterator : std::iterator<std::random_access_iterator_tag, T>
 	{
-		ForwardListIterator() {}
-		ForwardListIterator(LinkedList<T> val) :m_list(val) {}
-		ForwardListIterator(LinkedList<T> val, long long index) :m_list(val), m_curIndex(index) {}
-		ForwardListIterator(const ForwardListIterator& lit) : m_list(lit.m_list),m_curIndex(lit.m_curIndex) {}
+		ListIterator() {}
+		ListIterator(LinkedList<T> val) :m_list(val) {}
+		ListIterator(LinkedList<T> val, long long index) :m_list(val), m_curIndex(index) {}
+		ListIterator(const ListIterator& lit) : m_list(lit.m_list),m_curIndex(lit.m_curIndex) {}
 
-		ForwardListIterator& operator++()//prefix
+		ListIterator& operator++()//prefix
 		{
 			if (m_curIndex < m_list.m_size)
 			{
@@ -349,36 +350,121 @@ public:
 			return *this;
 		}
 
-		ForwardListIterator operator++(int)//postfix
+		ListIterator operator++(int)//postfix
 		{
-			ForwardListIterator tmp(*this);
+			ListIterator tmp(*this);
 			operator++();
 			return tmp;
 		}
 
-		bool operator==(const ForwardListIterator& rhs)const 
+		ListIterator& operator--()//prefix
+		{
+			if (m_curIndex > 0)
+			{
+				--m_curIndex;
+			}
+			return *this;
+		}
+
+		ListIterator operator--(int)//postfix
+		{
+			ListIterator tmp(*this);
+			operator--();
+			return tmp;
+		}
+
+		ListIterator operator+(const size_t in)
+		{
+			ListIterator tmp(*this);
+			return tmp += in;
+		}
+
+
+		ListIterator& operator+=(const size_t in)
+		{
+			m_curIndex += in;
+			return *this;
+		}
+
+		ListIterator operator-(const size_t in)
+		{
+			ListIterator tmp(*this);
+			return tmp -= in;
+		}
+
+		ListIterator& operator-=(const size_t in)
+		{
+			m_curIndex -= in;
+			return *this;
+		}
+
+		long long operator-(const ListIterator in)
+		{
+			return m_curIndex - in.m_curIndex;
+		}
+
+		bool operator==(const ListIterator& rhs)const 
 		{ 
 			return m_curIndex == rhs.m_curIndex;
 		}
 
-		bool operator!=(const ForwardListIterator& rhs)const 
+		bool operator!=(const ListIterator& rhs)const 
 		{
 			return m_curIndex != rhs.m_curIndex; 
 		}
 
-		T operator*()const 
-		{ 
-			return m_list[m_curIndex]; 
-		}
-
-		T operator->()const 
-		{ 
-			return m_list[m_curIndex]; 
-		}
-
-		operator ForwardListIterator()const
+		bool operator<(const ListIterator& rhs)const
 		{
-			return ForwardListIterator(m_list, m_curIndex);
+			return m_curIndex < rhs.m_curIndex;
+		}
+
+		bool operator<=(const ListIterator& rhs)const
+		{
+			if (m_curIndex == rhs.m_curIndex)
+			{
+				return true;
+			}
+			else
+			{
+				return this->operator<(rhs);
+			}
+		}
+
+		bool operator>(const ListIterator& rhs)const
+		{
+			return m_curIndex > rhs.m_curIndex;
+		}
+
+		bool operator>=(const ListIterator& rhs)const
+		{
+			if (m_curIndex == rhs.m_curIndex)
+			{
+				return true;
+			}
+			else
+			{
+				return this->operator>(rhs);
+			}
+		}
+
+		T& operator*()
+		{ 
+			return m_list[m_curIndex]; 
+		}
+
+		T& operator->()
+		{ 
+			return m_list[m_curIndex]; 
+		}
+
+		T& operator[](const long long in)
+		{
+			return m_list[in];
+		}
+
+		operator ListIterator()const
+		{
+			return ListIterator(m_list, m_curIndex);
 		}
 
 	private:
@@ -386,26 +472,36 @@ public:
 		long long m_curIndex = 0;
 	};
 
-	ForwardListIterator begin()
+	ListIterator begin()
 	{
-		return ForwardListIterator(*this);
+		return ListIterator(*this);
 	}
 
-	const ForwardListIterator begin()const
+	const ListIterator begin()const
 	{
-		return ForwardListIterator(*this);
+		return ListIterator(*this);
 	}
 
-	ForwardListIterator end()
+	ListIterator end()
 	{
-		return ForwardListIterator(*this,this->size());
+		return ListIterator(*this,this->size());
 	}
 
-	const ForwardListIterator end()const
+	const ListIterator end()const
 	{
-		return ForwardListIterator(*this,this->size());
+		return ListIterator(*this,this->size());
 	}
 	
+	void sort()
+	{
+		std::sort(this->begin(), this->end(), [](const T &a, const T &b) {return a < b;});
+	}
+
+	template<class Predicate>
+	void sort(Predicate pred)
+	{
+		std::sort(this->begin(), this->end(), pred);
+	}
 
 	unsigned long long getSizeOfNode()
 	{
@@ -418,7 +514,7 @@ private:
 	struct Node
 	{
 		std::shared_ptr<Node> _next;
-		int _usedDigits;
+		short _usedDigits;
 		long long _nodeNumber;
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
