@@ -36,7 +36,7 @@
 /*HAS_MEM_FUNC(operator<, hasLessThan);
 hasLessThan<cl, std::string(cl :: *)()>::value*/
 
-template<const typename T>
+template<typename T>
 class LinkedList
 {
 
