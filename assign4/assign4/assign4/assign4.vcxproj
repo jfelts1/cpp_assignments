@@ -95,6 +95,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <OmitFramePointers>false</OmitFramePointers>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -131,9 +132,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="complex.cpp" />
     <ClCompile Include="linkedList_tester.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="complex.h" />
     <ClInclude Include="LinkedList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

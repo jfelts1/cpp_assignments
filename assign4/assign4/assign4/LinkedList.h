@@ -15,13 +15,28 @@
 #include <algorithm>
 #include <utility>
 #include <iterator>
+#include <type_traits>
 
 #define PAGESIZE 4096
 //should make each node exactly one page in size
 #define NODEDATASIZE (PAGESIZE - sizeof(short)-sizeof(long long)-sizeof(std::shared_ptr<int>))
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
+//from http://stackoverflow.com/a/264088
+#define HAS_MEM_FUNC(func, name)                                        \
+    template<typename T, typename Sign>                                 \
+    struct name {                                                       \
+        typedef char yes[1];                                            \
+        typedef char no [2];                                            \
+        template <typename U, U> struct type_check;                     \
+        template <typename _1> static yes &chk(type_check<Sign, &_1::func > *); \
+        template <typename   > static no  &chk(...);                    \
+        static bool const value = sizeof(chk<T>(0)) == sizeof(yes);     \
+    }
 
-template<class T>
+/*HAS_MEM_FUNC(operator<, hasLessThan);
+hasLessThan<cl, std::string(cl :: *)()>::value*/
+
+template<const typename T>
 class LinkedList
 {
 
@@ -491,10 +506,11 @@ public:
 	{
 		return ListIterator(*this,this->size());
 	}
-	
+		
+
 	void sort()
 	{
-		std::sort(this->begin(), this->end(), [](const T &a, const T &b) {return a < b;});
+		std::sort(begin(), end(), [](const T &a, const T &b) {return a < b;});
 	}
 
 	template<class Predicate>
@@ -518,7 +534,6 @@ private:
 		long long _nodeNumber;
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
-
 	
 	std::shared_ptr<Node> m_head;
 	std::shared_ptr<Node> m_tail;

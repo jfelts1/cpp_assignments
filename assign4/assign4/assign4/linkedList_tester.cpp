@@ -5,6 +5,7 @@
  * Visual C++ 2015 X64 target 
  * g++ 5.1
  */
+
 #include "LinkedList.h"
 #include <cstdlib>
 #include <cstdio>
@@ -12,6 +13,8 @@
 #include <vector>
 #include <chrono>
 #include <random>
+#include <utility>
+#include "complex.h"
 
 using std::cout;
 using std::endl;
@@ -25,6 +28,11 @@ int main()
 	{
 		std::cerr << "Unable to set buffer size" << endl;
 	}
+
+	LinkedList<Complex> comp;
+	comp.add(Complex(1, 2));
+	comp.add(Complex(2, 3));
+	//comp.sort();
 
 	LinkedList<int> l;
 	LinkedList<int> l2;
@@ -147,4 +155,5 @@ int main()
 
 	return EXIT_SUCCESS;
 }
+
 

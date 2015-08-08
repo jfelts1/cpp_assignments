@@ -18,9 +18,15 @@
     <ClCompile Include="linkedList_tester.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="complex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="complex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
