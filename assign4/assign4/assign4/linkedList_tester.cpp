@@ -81,6 +81,21 @@ int main()
 	}
 	cout << endl;
 
+	LinkedList<long long> test;
+	for (int i = 0;i < 10;i++)
+	{
+		test.add((int)mtrand());
+	}
+
+	cout << test << endl;
+	cout << "sorting" << endl;
+	test.sort();
+
+	cout << "after sorting\n" << endl;
+	cout << test << endl;
+	cout << comp << endl;
+	comp.sort();
+
 	cout << "l == l2 " << ((l == l2) ? "true" : "false") << endl;
 	cout << "l != l2 " << ((l != l2) ? "true" : "false") << endl;
 	cout << "l == l5 " << ((l == l5) ? "true" : "false") << endl;
@@ -121,21 +136,6 @@ int main()
 	{
 		cout << "lltest[" << i << "]: " << lltest[i] << endl;
 	}
-
-	LinkedList<long long> test;
-	for (int i = 0;i < 1000;i++)
-	{
-		test.add((int)mtrand());
-	}
-
-	cout << test << endl;
-	cout << "sorting" << endl;
-	test.sort();
-
-	cout << "after sorting" << endl;
-	cout << test << endl;
-	cout << comp << endl;
-	comp.sort();
 
 	/*std::list<int> test;
 	for (int i = 0; i < 50000;i++)

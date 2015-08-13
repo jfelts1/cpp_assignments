@@ -20,7 +20,7 @@
 
 #define PAGESIZE 4096
 //should make each node exactly one page in size
-#define NODEDATASIZE (PAGESIZE - sizeof(short)-sizeof(long long)-sizeof(std::shared_ptr<int>))
+#define NODEDATASIZE (PAGESIZE - sizeof(long long)-sizeof(long long)-sizeof(std::shared_ptr<int>))
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
 //from http://stackoverflow.com/a/264088
 #define HAS_MEM_FUNC(func, name)                                        \
@@ -67,10 +67,7 @@ class LinkedList
 public:
 
 	LinkedList()
-	{
-		m_size = 0;
-		m_numNodes = 0;
-	}
+	{}
 
 	virtual ~LinkedList(){}
 
@@ -174,13 +171,13 @@ public:
 		else if (m_size%m_nodeSize == 0LL)
 		{
 			std::shared_ptr<Node> nn = makeNewNode(value);
-			m_tail->_next = nn;
+			m_tail->m_next = nn;
 			m_tail = nn;
 		}
 		else
 		{
-			m_tail->_digits[m_tail->_usedDigits] = value;
-			m_tail->_usedDigits++;
+			m_tail->m_digits[m_tail->m_usedDigits] = value;
+			m_tail->m_usedDigits++;
 		}
 		m_size++;
 	}
@@ -296,6 +293,9 @@ public:
 		}
 	}
 
+	//checks if the list contains the given value
+	//returns true if found
+	//false otherwise
 	bool contains(const T value)
 	{
 		for (long long i = 0;i < m_size;i++)
@@ -314,7 +314,7 @@ public:
 		long long atNode = index / m_nodeSize;
 		long long indexInNode = index%m_nodeSize;
 		std::shared_ptr<Node> n = getNode(atNode);
-		return n->_digits[indexInNode];
+		return n->m_digits[indexInNode];
 	}
 
 	//returns the value at the given index with bounds checking
@@ -333,7 +333,7 @@ public:
 		long long atNode = index / m_nodeSize;
 		long long indexInNode = index%m_nodeSize;
 		std::shared_ptr<Node> n = getNode(atNode);
-		return n->_digits[indexInNode];
+		return n->m_digits[indexInNode];
 	}
 
 	//returns the value at the given index with bounds checking
@@ -554,10 +554,10 @@ public:
 private:
 	struct Node
 	{
-		std::shared_ptr<Node> _next;
-		short _usedDigits;
-		long long _nodeNumber;
-		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
+		std::shared_ptr<Node> m_next;
+		long long m_usedDigits;
+		long long m_nodeNumber;
+		T m_digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
 
 	std::shared_ptr<Node> m_head = nullptr;
@@ -585,11 +585,11 @@ private:
 	inline std::shared_ptr<Node> makeNewNode(const T value)
 	{
 		std::shared_ptr<Node> nn = std::make_shared<Node>();
-		nn->_next = nullptr;
-		nn->_digits[0] = value;
-		nn->_usedDigits = 0;
-		nn->_usedDigits++;
-		nn->_nodeNumber = m_numNodes;
+		nn->m_next = nullptr;
+		nn->m_digits[0] = value;
+		nn->m_usedDigits = 0;
+		nn->m_usedDigits++;
+		nn->m_nodeNumber = m_numNodes;
 		m_numNodes++;
 		return nn;
 	}
@@ -601,7 +601,7 @@ private:
 
 		while (count < index)
 		{
-			cur = cur->_next;
+			cur = cur->m_next;
 			count++;
 		}
 	
@@ -616,7 +616,7 @@ private:
 		{
 			m_cur = m_head;
 		}
-		if (m_cur->_nodeNumber == index)
+		if (m_cur->m_nodeNumber == index)
 		{
 			return m_cur;
 		}
@@ -625,7 +625,7 @@ private:
 			m_cur = m_head;
 			while (count < index)
 			{
-				m_cur = m_cur->_next;
+				m_cur = m_cur->m_next;
 				count++;
 			}
 			return m_cur;
