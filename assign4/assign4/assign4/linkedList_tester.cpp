@@ -34,6 +34,7 @@ int main()
 	comp.add(Complex(2, 3));
 	//comp.sort();
 
+
 	LinkedList<int> l;
 	LinkedList<int> l2;
 	for (int i = 0;i < 50000;i++)
@@ -130,6 +131,7 @@ int main()
 
 	cout << "after sorting" << endl;
 	cout << test << endl;
+	comp.sort();
 
 	/*std::list<int> test;
 	for (int i = 0; i < 50000;i++)

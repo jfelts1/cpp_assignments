@@ -33,10 +33,24 @@
         static bool const value = sizeof(chk<T>(0)) == sizeof(yes);     \
     }
 
-/*HAS_MEM_FUNC(operator<, hasLessThan);
-hasLessThan<cl, std::string(cl :: *)()>::value*/
+#define ISSORTABLECLASS(name)\
+	template<class Q = T>\
+	struct name{\
+		HAS_MEM_FUNC(operator<, hasLessThan);\
+		static bool const value = hasLessThan<T, std::string(Q :: *)()>::value;\
+	}
 
-template<typename T>
+#define ISSORTABLENONCLASS(name)\
+	template<class Q = T>\
+	struct name{\
+	static bool const value = (std::is_integral<Q>::value || std::is_floating_point<Q>::value ? true : false);\
+	}
+
+
+/*HAS_MEM_FUNC(operator<, hasLessThan);
+hasLessThan<T, std::string(T :: *)()>::value*/
+
+template<class T>
 class LinkedList
 {
 
@@ -506,17 +520,35 @@ public:
 	{
 		return ListIterator(*this,this->size());
 	}
-		
+	
+	ISSORTABLENONCLASS(isSortableNonClass);
 
-	void sort()
+	template<class Q = T>
+	typename std::enable_if<std::is_class<Q>::value,void>::type
+	sort()
 	{
-		std::sort(begin(), end(), [](const T &a, const T &b) {return a < b;});
+		sortClassHelper();
 	}
+
+	template<class Q = T>
+	typename std::enable_if<(!(std::is_class<Q>::value) && isSortableNonClass<Q>::value), void>::type
+		sort()
+	{
+		sort([](const T& l, const T& r) {return l < r;});
+	}
+
+	template<class Q = T>
+	typename std::enable_if<(!(std::is_class<Q>::value) && !(isSortableNonClass<Q>::value)),void>::type
+		sort()
+	{
+		std::cout << "Unable to sort this type" << std::endl;
+	}
+
 
 	template<class Predicate>
 	void sort(Predicate pred)
 	{
-		std::sort(this->begin(), this->end(), pred);
+		std::sort(begin(), end(), pred);
 	}
 
 	unsigned long long getSizeOfNode()
@@ -534,12 +566,28 @@ private:
 		long long _nodeNumber;
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
-	
+
 	std::shared_ptr<Node> m_head;
 	std::shared_ptr<Node> m_tail;
 	std::shared_ptr<Node> m_cur = nullptr;
 	long long m_numNodes = 0;
 	long long m_size = 0;
+
+	ISSORTABLECLASS(isSortableClass);
+
+	template<class Q = T>
+	typename std::enable_if<isSortableClass<Q>::value, void>::type
+		sortClassHelper()
+	{
+		sort([](const T& l, const T& r) {return l < r;});
+	}
+
+	template<class Q = T>
+	typename std::enable_if<!(isSortableClass<Q>::value),void>::type
+		sortClassHelper()
+	{
+		std::cout << "Unable to sort this type" << std::endl;
+	}
 
 	inline std::shared_ptr<Node> makeNewNode(const T value)
 	{
