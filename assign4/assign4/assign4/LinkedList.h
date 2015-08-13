@@ -37,14 +37,14 @@
 /*HAS_MEM_FUNC(operator<, hasLessThan);
 hasLessThan<T, std::string(T :: *)()>::value*/
 
-#define ISSORTABLECLASS(name)\
+#define IS_SORTABLE_CLASS(name)\
 	template<class Q = T>\
 	struct name{\
 		HAS_MEM_FUNC(operator<, hasLessThan);\
 		static bool const value = hasLessThan<T, std::string(Q :: *)()>::value;\
 	}
 
-#define ISSORTABLENONCLASS(name)\
+#define IS_SORTABLE_NON_CLASS(name)\
 	template<class Q = T>\
 	struct name{\
 	static bool const value = (std::is_integral<Q>::value || std::is_floating_point<Q>::value ? true : false);\
@@ -521,7 +521,7 @@ public:
 		return ListIterator(this,this->size());
 	}
 	
-	ISSORTABLENONCLASS(isSortableNonClass);
+	IS_SORTABLE_NON_CLASS(isSortableNonClass);
 
 	template<class Q = T>
 	typename std::enable_if<std::is_class<Q>::value,void>::type
@@ -541,7 +541,7 @@ public:
 	typename std::enable_if<(!(std::is_class<Q>::value) && !(isSortableNonClass<Q>::value)),void>::type
 		sort()
 	{
-		std::cout << "Unable to sort the type:" << typeid(this->at(0)).name() << std::endl;
+		std::cerr << "Unable to sort the type:" << typeid(this->at(0)).name() << std::endl;
 	}
 
 	unsigned long long getSizeOfNode()
@@ -566,7 +566,7 @@ private:
 	long long m_numNodes = 0;
 	long long m_size = 0;
 
-	ISSORTABLECLASS(isSortableClass);
+	IS_SORTABLE_CLASS(isSortableClass);
 
 	template<class Q = T>
 	typename std::enable_if<isSortableClass<Q>::value, void>::type
@@ -579,7 +579,7 @@ private:
 	typename std::enable_if<!(isSortableClass<Q>::value),void>::type
 		sortClassHelper()
 	{
-		std::cout << "Unable to sort the type:" << typeid(this->at(0)).name() << std::endl;
+		std::cerr << "Unable to sort the type:" << typeid(this->at(0)).name() << std::endl;
 	}
 
 	inline std::shared_ptr<Node> makeNewNode(const T value)

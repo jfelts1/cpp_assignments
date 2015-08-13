@@ -29,9 +29,12 @@ int main()
 		std::cerr << "Unable to set buffer size" << endl;
 	}
 
+	mt19937 mtrand;
 	LinkedList<Complex> comp;
-	comp.add(Complex(1, 2));
-	comp.add(Complex(2, 3));
+	for (int i = 0;i < 10;i++)
+	{
+		comp.add(Complex((int)mtrand(), (int)mtrand()));
+	}
 	//comp.sort();
 
 
@@ -120,9 +123,9 @@ int main()
 	}
 
 	LinkedList<long long> test;
-	for (int i = 0;i < 10;i++)
+	for (int i = 0;i < 1000;i++)
 	{
-		test.add(rand());
+		test.add((int)mtrand());
 	}
 
 	cout << test << endl;
