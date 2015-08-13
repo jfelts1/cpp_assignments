@@ -572,7 +572,7 @@ private:
 	typename std::enable_if<isSortableClass<Q>::value, void>::type
 		sortClassHelper()
 	{
-		Std::sort(begin(),end(),[](const T& l, const T& r) {return l < r;});
+		std::sort(begin(),end(),[](const T& l, const T& r) {return l < r;});
 	}
 
 	template<class Q = T>
