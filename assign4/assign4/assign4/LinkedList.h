@@ -16,6 +16,7 @@
 #include <utility>
 #include <iterator>
 #include <type_traits>
+#include <typeinfo>
 
 #define PAGESIZE 4096
 //should make each node exactly one page in size
@@ -33,6 +34,9 @@
         static bool const value = sizeof(chk<L>(0)) == sizeof(yes);     \
     }
 
+/*HAS_MEM_FUNC(operator<, hasLessThan);
+hasLessThan<T, std::string(T :: *)()>::value*/
+
 #define ISSORTABLECLASS(name)\
 	template<class Q = T>\
 	struct name{\
@@ -47,8 +51,7 @@
 	}
 
 
-/*HAS_MEM_FUNC(operator<, hasLessThan);
-hasLessThan<T, std::string(T :: *)()>::value*/
+
 
 template<class T>
 class LinkedList
@@ -541,7 +544,7 @@ public:
 	typename std::enable_if<(!(std::is_class<Q>::value) && !(isSortableNonClass<Q>::value)),void>::type
 		sort()
 	{
-		std::cout << "Unable to sort this type" << std::endl;
+		std::cout << "Unable to sort this type:" << typeid(this->at(0)).name() << std::endl;
 	}
 
 
@@ -586,7 +589,7 @@ private:
 	typename std::enable_if<!(isSortableClass<Q>::value),void>::type
 		sortClassHelper()
 	{
-		std::cout << "Unable to sort this type" << std::endl;
+		std::cout << "Unable to sort this type:"<<typeid(this->at(0)).name() << std::endl;
 	}
 
 	inline std::shared_ptr<Node> makeNewNode(const T value)
