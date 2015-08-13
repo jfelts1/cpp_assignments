@@ -23,14 +23,14 @@
 #define THROW_OUTOFRANGE throw std::out_of_range("Attempted to access an element out of range");
 //from http://stackoverflow.com/a/264088
 #define HAS_MEM_FUNC(func, name)                                        \
-    template<typename T, typename Sign>                                 \
+    template<typename L, typename Sign>                                 \
     struct name {                                                       \
         typedef char yes[1];                                            \
         typedef char no [2];                                            \
         template <typename U, U> struct type_check;                     \
         template <typename _1> static yes &chk(type_check<Sign, &_1::func > *); \
         template <typename   > static no  &chk(...);                    \
-        static bool const value = sizeof(chk<T>(0)) == sizeof(yes);     \
+        static bool const value = sizeof(chk<L>(0)) == sizeof(yes);     \
     }
 
 #define ISSORTABLECLASS(name)\
