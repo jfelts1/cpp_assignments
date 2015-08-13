@@ -50,9 +50,6 @@ hasLessThan<T, std::string(T :: *)()>::value*/
 	static bool const value = (std::is_integral<Q>::value || std::is_floating_point<Q>::value ? true : false);\
 	}
 
-
-
-
 template<class T>
 class LinkedList
 {
@@ -328,7 +325,7 @@ public:
 		{
 			THROW_OUTOFRANGE
 		}
-		return this[index];
+		return this->operator[](index);
 	}
 
 	//returns the value at the given index
@@ -537,7 +534,7 @@ public:
 	typename std::enable_if<(!(std::is_class<Q>::value) && isSortableNonClass<Q>::value), void>::type
 		sort()
 	{
-		sort([](const T& l, const T& r) {return l < r;});
+		std::sort(begin(),end(),[](const T& l, const T& r) {return l < r;});
 	}
 
 	template<class Q = T>
@@ -545,13 +542,6 @@ public:
 		sort()
 	{
 		std::cout << "Unable to sort this type:" << typeid(this->at(0)).name() << std::endl;
-	}
-
-
-	template<class Predicate>
-	void sort(Predicate pred)
-	{
-		std::sort(begin(), end(), pred);
 	}
 
 	unsigned long long getSizeOfNode()
@@ -582,14 +572,14 @@ private:
 	typename std::enable_if<isSortableClass<Q>::value, void>::type
 		sortClassHelper()
 	{
-		sort([](const T& l, const T& r) {return l < r;});
+		Std::sort(begin(),end(),[](const T& l, const T& r) {return l < r;});
 	}
 
 	template<class Q = T>
 	typename std::enable_if<!(isSortableClass<Q>::value),void>::type
 		sortClassHelper()
 	{
-		std::cout << "Unable to sort this type:"<<typeid(this->at(0)).name() << std::endl;
+		std::cout << "Unable to sort this type:" << typeid(this->at(0)).name() << std::endl;
 	}
 
 	inline std::shared_ptr<Node> makeNewNode(const T value)
