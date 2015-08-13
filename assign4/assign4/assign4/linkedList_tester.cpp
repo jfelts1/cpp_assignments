@@ -126,11 +126,12 @@ int main()
 	}
 
 	cout << test << endl;
-
+	cout << "sorting" << endl;
 	test.sort();
 
 	cout << "after sorting" << endl;
 	cout << test << endl;
+	cout << comp << endl;
 	comp.sort();
 
 	/*std::list<int> test;

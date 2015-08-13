@@ -62,7 +62,6 @@ class LinkedList
 			out << linkedList[i] << "\n";
 		}
 		return out;
-
 	}
 
 public:
@@ -356,6 +355,7 @@ public:
 	{
 		m_head = nullptr;
 		m_tail = nullptr;
+		m_cur = nullptr;
 		m_size = 0;
 		m_numNodes = 0;
 		//smart pointers should clean up the nodes
@@ -366,13 +366,13 @@ public:
 	struct ListIterator : std::iterator<std::random_access_iterator_tag, T>
 	{
 		ListIterator() {}
-		ListIterator(LinkedList<T> val) :m_list(val) {}
-		ListIterator(LinkedList<T> val, long long index) :m_list(val), m_curIndex(index) {}
+		ListIterator(LinkedList<T>* val) :m_list(val) {}
+		ListIterator(LinkedList<T>* val, long long index) :m_list(val), m_curIndex(index) {}
 		ListIterator(const ListIterator& lit) : m_list(lit.m_list),m_curIndex(lit.m_curIndex) {}
 
 		ListIterator& operator++()//prefix
 		{
-			if (m_curIndex < m_list.m_size)
+			if (m_curIndex < m_list->m_size)
 			{
 				++m_curIndex;
 			}
@@ -478,17 +478,17 @@ public:
 
 		T& operator*()
 		{ 
-			return m_list[m_curIndex]; 
+			return m_list->operator[](m_curIndex); 
 		}
 
 		T& operator->()
 		{ 
-			return m_list[m_curIndex]; 
+			return m_list->operator[](m_curIndex); 
 		}
 
 		T& operator[](const long long in)
 		{
-			return m_list[in];
+			return m_list->operator[](in);
 		}
 
 		operator ListIterator()const
@@ -497,28 +497,28 @@ public:
 		}
 
 	private:
-		LinkedList<T> m_list;
+		LinkedList<T>* m_list;
 		long long m_curIndex = 0;
 	};
 
 	ListIterator begin()
 	{
-		return ListIterator(*this);
+		return ListIterator(this);
 	}
 
 	const ListIterator begin()const
 	{
-		return ListIterator(*this);
+		return ListIterator(this);
 	}
 
 	ListIterator end()
 	{
-		return ListIterator(*this,this->size());
+		return ListIterator(this,this->size());
 	}
 
 	const ListIterator end()const
 	{
-		return ListIterator(*this,this->size());
+		return ListIterator(this,this->size());
 	}
 	
 	ISSORTABLENONCLASS(isSortableNonClass);
@@ -541,7 +541,7 @@ public:
 	typename std::enable_if<(!(std::is_class<Q>::value) && !(isSortableNonClass<Q>::value)),void>::type
 		sort()
 	{
-		std::cout << "Unable to sort this type:" << typeid(this->at(0)).name() << std::endl;
+		std::cout << "Unable to sort the type:" << typeid(this->at(0)).name() << std::endl;
 	}
 
 	unsigned long long getSizeOfNode()
@@ -560,8 +560,8 @@ private:
 		T _digits[NODEDATASIZE / sizeof(T)<1 ? 1 : NODEDATASIZE / sizeof(T)];
 	};
 
-	std::shared_ptr<Node> m_head;
-	std::shared_ptr<Node> m_tail;
+	std::shared_ptr<Node> m_head = nullptr;
+	std::shared_ptr<Node> m_tail = nullptr;
 	std::shared_ptr<Node> m_cur = nullptr;
 	long long m_numNodes = 0;
 	long long m_size = 0;
@@ -579,7 +579,7 @@ private:
 	typename std::enable_if<!(isSortableClass<Q>::value),void>::type
 		sortClassHelper()
 	{
-		std::cout << "Unable to sort this type:" << typeid(this->at(0)).name() << std::endl;
+		std::cout << "Unable to sort the type:" << typeid(this->at(0)).name() << std::endl;
 	}
 
 	inline std::shared_ptr<Node> makeNewNode(const T value)
