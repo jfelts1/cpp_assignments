@@ -116,6 +116,7 @@ int main()
 	cout << "l[3]: " << l[3] << endl;
 	cout << "l[l.size()-1]: " << l[l.size() - 1] << endl;
 	cout << "l sizeof(Node): " << l.getSizeOfNode() << endl;
+	cout << "comp sizeof(Node): " << test.getSizeOfNode() << endl;
 
 	cout << "lltest node size is: " << lltest.m_nodeSize << endl;
 	cout << "lltest sizeof(Node): " << lltest.getSizeOfNode() << endl;

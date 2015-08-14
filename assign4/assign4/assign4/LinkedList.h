@@ -17,6 +17,7 @@
 #include <iterator>
 #include <type_traits>
 #include <typeinfo>
+#include <sstream>
 
 #define PAGESIZE 4096
 //should make each node exactly one page in size
