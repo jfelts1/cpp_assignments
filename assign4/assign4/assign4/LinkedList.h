@@ -17,6 +17,7 @@
 #include <iterator>
 #include <type_traits>
 #include <typeinfo>
+#include <sstream>
 
 #define PAGESIZE 4096
 //should make each node exactly one page in size
@@ -56,7 +57,11 @@ class LinkedList
 
 	friend inline std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
 	{
-		//faster than iterators
+		//range for doesn't work here even though it worked fine in the tester with the exact same code during my testing
+		/*for (auto val : linkedList)
+		{
+			out << val << "\n";
+		}*/
 		for (long long i = 0;i < linkedList.size();i++)
 		{
 			out << linkedList[i] << "\n";
@@ -183,6 +188,8 @@ public:
 	}
 
 	//add the given value at the given index
+	//on error
+	//throws std::out_of_range
 	void add(const T value, const long long index)
 	{
 		if (index > m_size - 1 || index < 0)
@@ -234,6 +241,8 @@ public:
 	}
 
 	//deletes the element at the given index
+	//on error
+	//throws std::out_of_range
 	T removeByIndex(const long long index)
 	{
 		if (index > m_size - 1 || index < 0)
@@ -318,6 +327,8 @@ public:
 	}
 
 	//returns the value at the given index with bounds checking
+	//on error
+	//throws std::out_of_range
 	T& at(const long long index)
 	{
 		if (index > m_size-1 || index < 0)
@@ -337,6 +348,8 @@ public:
 	}
 
 	//returns the value at the given index with bounds checking
+	//on error
+	//throws std::out_of_range
 	const T& at(const long long index)const
 	{
 		if (index > m_size - 1 || index < 0)
@@ -520,7 +533,7 @@ public:
 	{
 		return ListIterator(this,this->size());
 	}
-	
+
 	IS_SORTABLE_NON_CLASS(isSortableNonClass);
 
 	template<class Q = T>
