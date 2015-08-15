@@ -3,6 +3,8 @@
  * Compilers Used
  * Visual C++ 2013
  * g++ 4.92
+ * Visual C++ 2015 X64 target use the project settings
+ * g++ 5.1 flags used g++-5 -Wall -Wextra -O2 *.cpp -std=c++14
  * 
  * doesn't handle spaces in input but can handle certain expressions like
  * just i or -i or simpily numbers like 5 or -9

@@ -1,4 +1,10 @@
-
+/*
+ * James Felts
+ *
+ * Compilers Used
+ * Visual C++ 2015 X64 target use the project settings
+ * g++ 5.1 flags used g++-5 -Wall -Wextra -O2 *.cpp -std=c++14
+ */
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #pragma once
