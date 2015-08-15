@@ -4,6 +4,8 @@
  * Compilers Used
  * Visual C++ 2015 X64 target use the project settings
  * g++ 5.1 flags used g++-5 -Wall -Wextra -O2 *.cpp -std=c++14
+ *
+ * range for working at line 526 in linkedList_tester.cpp
  */
 
 #include "LinkedList.h"

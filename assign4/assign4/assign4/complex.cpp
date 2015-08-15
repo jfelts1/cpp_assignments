@@ -8,6 +8,8 @@
  * 
  * doesn't handle spaces in input but can handle certain expressions like
  * just i or -i or simpily numbers like 5 or -9
+ *
+ * range for working at line 526 in linkedList_tester.cpp
  */
 #include "complex.h"
 

@@ -4,6 +4,8 @@
  * Compilers Used
  * Visual C++ 2015 X64 target use the project settings
  * g++ 5.1 flags used g++-5 -Wall -Wextra -O2 *.cpp -std=c++14
+ *
+ * range for working at line 526 in linkedList_tester.cpp
  */
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
@@ -63,7 +65,7 @@ class LinkedList
 
 	friend inline std::ostream& operator<<(std::ostream& out, const LinkedList& linkedList)
 	{
-		//range for doesn't work here even though it worked fine in the tester with the exact same code during my testing
+		//range for doesn't work here even though it works fine in the tester with the exact same code during my testing line 526 in linkedList_tester.cpp
 		/*for (auto val : linkedList)
 		{
 			out << val << "\n";
